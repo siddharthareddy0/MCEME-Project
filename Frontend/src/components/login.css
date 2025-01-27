@@ -1,0 +1,57 @@
+/* .header {
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: bold;
+} */
+
+.organization-name {
+  font-size: 20px;
+  font-weight: normal;
+}
+
+.login-container {
+  width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+label {
+  display: block;
+  padding: 7px;
+  margin-bottom: 5px;
+}
+
+input, select, button {
+  width: 250px;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+}
+
+button {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+.page-content {
+  margin: 20px;
+  font-size: 18px;
+}

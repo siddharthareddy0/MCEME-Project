@@ -1,0 +1,19 @@
+.header {
+    height: 100px;
+    margin: 10px;
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+    align-items: center;
+    background-color: #2f4f4f;
+    padding: 10px 10px;
+    color: #f0e68c;
+    border-radius: 10px;
+  }
+  .header div{
+    font-size: 100px;
+  }
+  .logo {
+    
+    width: 50px;
+  }
