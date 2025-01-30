@@ -1,0 +1,216 @@
+/* General Styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  overflow-x: hidden;
+}
+
+/* Main Container */
+.leave-management {
+  max-width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+/* Title */
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #556b2f;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Table Styling */
+.leave-table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.leave-table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  table-layout: fixed; /* Ensures even column distribution */
+}
+
+/* Table Headers & Cells */
+.leave-table th,
+.leave-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.leave-table th {
+  background-color: #556b2f;
+  color: white;
+  font-weight: bold;
+}
+
+/* Row Styling */
+.leave-table tr:nth-child(even) {
+  background-color: #f0f4eb;
+}
+
+.leave-table tr:hover {
+  background-color: #fdf8e4;
+}
+
+/* Clickable Name */
+.leave-table td.clickable {
+  cursor: pointer;
+  color: #1a73e8;
+  text-decoration: underline;
+}
+
+.leave-table td.clickable:hover {
+  background-color: #d0e7ff;
+}
+
+/* Buttons Styling */
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+}
+
+.approve-btn,
+.reject-btn,
+.print-btn {
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  width: 80px;
+  text-align: center;
+}
+
+.approve-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+}
+
+.approve-btn:hover {
+  background-color: #45a049;
+}
+
+.reject-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+}
+
+.reject-btn:hover {
+  background-color: #d32f2f;
+}
+
+.print-btn {
+  background-color: #556b2f;
+  color: white;
+  border: none;
+}
+
+.print-btn:hover {
+  background-color: #6b8e23;
+}
+
+/* Back Button */
+.back-button {
+  float: right;
+  padding: 8px 16px;
+  background-color: #556b2f;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.back-button:hover {
+  background-color: #445624;
+}
+
+/* Leave History Container */
+.history-container {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.history-container h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #556b2f;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.history-table th,
+.history-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.history-table th {
+  background-color: #556b2f;
+  color: white;
+  font-weight: bold;
+}
+
+.history-table tr:nth-child(even) {
+  background-color: #f0f4eb;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .leave-table-container {
+    overflow-x: auto;
+  }
+
+  .leave-table {
+    font-size: 12px;
+  }
+
+  .approve-btn,
+  .reject-btn,
+  .print-btn {
+    font-size: 10px;
+    padding: 4px 6px;
+    width: auto;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .history-container {
+    padding: 10px;
+  }
+
+  .history-table th,
+  .history-table td {
+    font-size: 12px;
+  }
+}

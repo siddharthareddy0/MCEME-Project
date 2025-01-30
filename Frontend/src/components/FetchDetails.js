@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Attendance from './attendance';
 import Registration from './Registration';
+import Leave from './LeaveManagement';
 import './Fetch.css';
 
 function FetchDetails() {
@@ -11,6 +12,7 @@ function FetchDetails() {
   const [casteFilter, setCasteFilter] = useState('');
   const [payLevelFilter, setPayLevelFilter] = useState('');
   const [serviceCriteriaFilter, setServiceCriteriaFilter] = useState('');
+  const [industrialFilter, setIndustrialFilter] = useState('');
   const [activePage, setActivePage] = useState('fetchDetails');
 
   // Function to calculate years between two dates
@@ -57,8 +59,8 @@ function FetchDetails() {
     {
       slNo: 1,
       armyNumber: 'A12345',
-      facWing: 'Wing A',
-      trade: 'Electrical',
+      facWing: 'FEL',
+      trade: 'LDC',
       name: 'John Doe',
       gpfPranNo: '123456',
       caste: 'General',
@@ -66,13 +68,14 @@ function FetchDetails() {
       doa: '2024-06-15',
       dor: '2040-06-15',
       dop: '2020-06-15',
-      payLevel: '7'
+      payLevel: '7',
+      industrial: 'Industrial'
     },
     {
       slNo: 2,
       armyNumber: 'A12346',
-      facWing: 'Wing B',
-      trade: 'Mechanical',
+      facWing: 'FDE',
+      trade: 'UDC',
       name: 'Siddu',
       gpfPranNo: '123',
       caste: 'OBC',
@@ -80,180 +83,261 @@ function FetchDetails() {
       doa: '2005-06-15',
       dor: '2040-06-15',
       dop: '2020-06-15',
-      payLevel: '6'
+      payLevel: '6',
+      industrial: 'Non-Industrial'
     },
     // Add more data here
   ];
 
-  const filteredData = data.filter(
-    (row) => {
+  const filteredData = data.filter((row) => {
+    // Only apply search term filter if there is a search term
+    if (searchTerm) {
       const searchTermLower = searchTerm.toLowerCase();
-      const matchesTrade = !tradeFilter || row.trade === tradeFilter;
-      const matchesFacWing = !facWingFilter || row.facWing === facWingFilter;
-      const matchesCaste = !casteFilter || row.caste === casteFilter;
-      const matchesPayLevel = !payLevelFilter || row.payLevel === payLevelFilter;
-      const matchesServiceCriteria = !serviceCriteriaFilter || meetsServiceCriteria(row, serviceCriteriaFilter);
-      
-      // Check if either army number or GPF/PRAN number matches
       const matchesArmyNumber = row.armyNumber && row.armyNumber.toLowerCase().includes(searchTermLower);
       const matchesGpfPran = row.gpfPranNo && row.gpfPranNo.toLowerCase().includes(searchTermLower);
-      
-      return (matchesArmyNumber || matchesGpfPran) && 
-             matchesFacWing && 
-             matchesTrade && 
-             matchesCaste && 
-             matchesPayLevel &&
-             matchesServiceCriteria;
+      if (!matchesArmyNumber && !matchesGpfPran) {
+        return false;
+      }
     }
-  );
+
+    // Apply other filters only if they are set
+    if (tradeFilter && row.trade !== tradeFilter) return false;
+    if (facWingFilter && row.facWing !== facWingFilter) return false;
+    if (casteFilter && row.caste !== casteFilter) return false;
+    if (payLevelFilter && row.payLevel !== payLevelFilter) return false;
+    if (industrialFilter && row.industrial !== industrialFilter) return false;
+    if (serviceCriteriaFilter && !meetsServiceCriteria(row, serviceCriteriaFilter)) return false;
+
+    return true;
+  });
+
+  // Function to handle print
+  const handlePrint = () => {
+    window.print();
+  };
+
+  // Add console log to debug
+  console.log('Filtered Data:', filteredData);
 
   return (
-    <div className="fetch-details">
-      <div className="header">
-        <img src="/logo.png" alt=" Logo" className="logo" />
+    <div className="fetch-details-container">
+      <div className="header no-print">
+        <img src="/logo.png" alt="Logo" className="logo" />
         <h1>MCEME</h1>
       </div>
 
-      <div className="dashboard-menu">
+      <div className="dashboard-menu no-print">
         <button onClick={() => setActivePage('fetchDetails')}>Fetch Details</button>
         <button onClick={() => setActivePage('attendance')}>Attendance</button>
         <button onClick={() => setActivePage('leave')}>Leave</button>
         <button onClick={() => setActivePage('registration')}>Registration</button>
       </div>
+
       {activePage === 'fetchDetails' && (
-      <div>
-      <div className="search-filter">
-        <input
-          type="text"
-          placeholder="Search by Army Number or GPF/PRAN NO"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <select
-          value={facWingFilter}
-          onChange={(e) => setFacWingFilter(e.target.value)}
-          className="filter-select"
-        >
-          <option value="">All Fac/Wings</option>
-          <option value="Wing A">Wing A</option>
-          <option value="Wing B">Wing B</option>
-          <option value="Wing C">Wing C</option>
-          <option value="Wing D">Wing D</option>
-        </select>
-        <select
-          value={tradeFilter}
-          onChange={(e) => setTradeFilter(e.target.value)}
-          className="filter-select"
-        >
-          <option value="">All Trades</option>
-          <option value="Electrical">Electrical</option>
-          <option value="Mechanical">Mechanical</option>
-          <option value="Electronics">Electronics</option>
-          <option value="IT">IT</option>
-        </select>
-        <select
-          value={casteFilter}
-          onChange={(e) => setCasteFilter(e.target.value)}
-          className="filter-select"
-        >
-          <option value="">All Castes</option>
-          <option value="General">General</option>
-          <option value="OBC">OBC</option>
-          <option value="SC">SC</option>
-          <option value="ST">ST</option>
-        </select>
-        <select
-          value={payLevelFilter}
-          onChange={(e) => setPayLevelFilter(e.target.value)}
-          className="filter-select"
-        >
-          <option value="">All Pay Levels</option>
-          <option value="6">Level 6</option>
-          <option value="7">Level 7</option>
-          <option value="8">Level 8</option>
-          <option value="9">Level 9</option>
-          <option value="10">Level 10</option>
-        </select>
-        <select
-          value={serviceCriteriaFilter}
-          onChange={(e) => setServiceCriteriaFilter(e.target.value)}
-          className="filter-select service-criteria-select"
-        >
-          <option value="">All Service Criteria</option>
-          <option value="4_years_audit">4 Years Audit</option>
-          <option value="18_years_qualifying">18 Years Qualifying Service</option>
-          <option value="5_years_before_retirement">5 Years Before Retirement</option>
-          <option value="30_years_service">30 Years of Service</option>
-        </select>
-      </div>
-     
-      {filteredData.length === 0 ? (
-        <div className="no-results">
-          <p>No details found for the given search criteria.</p>
-        </div>
-      ) : (
-      <table className="details-table">
-        <thead>
-          <tr>
-            <th>Sl No</th>
-            <th>Army Number</th>
-            <th>Fac/Wing</th>
-            <th>Trade</th>
-            <th>Name</th>
-            <th>GPF/PRAN No</th>
-            <th>Caste</th>
-            <th>DoB</th>
-            <th>DoA</th>
-            <th>DoR</th>
-            <th>DoP</th>
-            <th>Pay Level</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredData.map((row, index) => (
-            <tr key={index}>
-              <td>{row.slNo}</td>
-              <td>{row.armyNumber}</td>
-              <td>{row.facWing}</td>
-              <td>{row.trade}</td>
-              <td>{row.name}</td>
-              <td>{row.gpfPranNo}</td>
-              <td>{row.caste}</td>
-              <td>{formatDate(row.dob)}</td>
-              <td>{formatDate(row.doa)}</td>
-              <td>{formatDate(row.dor)}</td>
-              <td>{formatDate(row.dop)}</td>
-              <td>{row.payLevel}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        <>
+          <div className="search-filter no-print">
+            <input
+              type="text"
+              placeholder="Search by Army Number or GPF/PRAN NO"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <select
+              value={facWingFilter}
+              onChange={(e) => setFacWingFilter(e.target.value)}
+              className="filter-select"
+            >
+              <option value="">All Fac/Wings</option>
+              <option value="Budget Cell">Budget Cell</option>
+              <option value="FAE">FAE</option>
+              <option value="HQ Trg Wing">HQ Trg Wing</option>
+              <option value="HQ Coy">HQ Coy</option>
+              <option value="MTS">MTS</option>
+              <option value="SDD">SDD</option>
+              <option value="FEMT">FEMT</option>
+              <option value="Col Adm Sectt">Col Adm Sectt</option>
+              <option value="FEME">FEME</option>
+              <option value="JCO Mess">JCO Mess</option>
+              <option value="Offr Mess">Offr Mess</option>
+              <option value="CTW">CTW</option>
+              <option value="Mag 5">Mag 5</option>
+              <option value="EMESA">EMESA</option>
+              <option value="FDE">FDE</option>
+              <option value="Comdt Sectt">Comdt Sectt</option>
+              <option value="SM Br">SM Br</option>
+              <option value="FEL">FEL</option>
+              <option value="A Coy">A Coy</option>
+              <option value="Fin Sec">Fin Sec</option>
+              <option value="Est Civ Sec">Est Civ Sec</option>
+              <option value="Adjt Sec">Adjt Sec</option>
+              <option value="E Coy">E Coy</option>
+              <option value="MTO">MTO</option>
+              <option value="QM Sec">QM Sec</option>
+              <option value="QM Fire Stn">QM Fire Stn</option>
+              <option value="MCEME Liby">MCEME Liby</option>
+              <option value="AA&QMG">AA&QMG</option>
+              <option value="Est (O) Civ Sec">Est (O) Civ Sec</option>
+              <option value="BSO">BSO</option>
+            </select>
+            <select
+              value={tradeFilter}
+              onChange={(e) => setTradeFilter(e.target.value)}
+              className="filter-select"
+            >
+              <option value="">All Trades</option>
+              <option value="Barber">Barber</option>
+              <option value="Book Binder">Book Binder</option>
+              <option value="C&J">C&J</option>
+              <option value="Cine Proj Mate">Cine Proj Mate</option>
+              <option value="CMD Gde I">CMD Gde I</option>
+              <option value="CMD Gde II">CMD Gde II</option>
+              <option value="CMD OG">CMD OG</option>
+              <option value="CMD Spl GDE">CMD Spl GDE</option>
+              <option value="Cook">Cook</option>
+              <option value="FBP">FBP</option>
+              <option value="Fireman">Fireman</option>
+              <option value="Fitter">Fitter</option>
+              <option value="Foreman">Foreman</option>
+              <option value="Inst Mech">Inst Mech</option>
+              <option value="Lab Asst">Lab Asst</option>
+              <option value="Lab Attd">Lab Attd</option>
+              <option value="Lab Demo">Lab Demo</option>
+              <option value="LDC">LDC</option>
+              <option value="LH (NT)">LH (NT)</option>
+              <option value="Machinist">Machinist</option>
+              <option value="Moulder">Moulder</option>
+              <option value="MTS (Chow)">MTS (Chow)</option>
+              <option value="MTS (Daftry)">MTS (Daftry)</option>
+              <option value="MTS (Mali)">MTS (Mali)</option>
+              <option value="MTS (Msgr)">MTS (Msgr)</option>
+              <option value="MTS (Sfwi)">MTS (Sfwi)</option>
+              <option value="O/Supdt">O/Supdt</option>
+              <option value="Painter & Dec">Painter & Dec</option>
+              <option value="Pattern Maker">Pattern Maker</option>
+              <option value="Photographer">Photographer</option>
+              <option value="Poster Artist">Poster Artist</option>
+              <option value="Snr Dtmn">Snr Dtmn</option>
+              <option value="Spvr (NT)">Spvr (NT)</option>
+              <option value="Steno Gde I">Steno Gde I</option>
+              <option value="Steno Gde II">Steno Gde II</option>
+              <option value="Store Keeper">Store Keeper</option>
+              <option value="Tailor">Tailor</option>
+              <option value="TCM">TCM</option>
+              <option value="TCS">TCS</option>
+              <option value="Tdsman Mate">Tdsman Mate</option>
+              <option value="UDC">UDC</option>
+              <option value="Washerman">Washerman</option>
+            </select>
+            <select
+              value={casteFilter}
+              onChange={(e) => setCasteFilter(e.target.value)}
+              className="filter-select"
+            >
+              <option value="">All Castes</option>
+              <option value="General">General</option>
+              <option value="OBC">OBC</option>
+              <option value="SC">SC</option>
+              <option value="ST">ST</option>
+            </select>
+            <select
+              value={payLevelFilter}
+              onChange={(e) => setPayLevelFilter(e.target.value)}
+              className="filter-select"
+            >
+              <option value="">All Pay Levels</option>
+              <option value="1">Level 1</option>
+              <option value="2">Level 2</option>
+              <option value="3">Level 3</option>
+              <option value="4">Level 4</option>
+              <option value="5">Level 5</option>
+              <option value="6">Level 6</option>
+              <option value="7">Level 7</option>
+              <option value="8">Level 8</option>
+              <option value="9">Level 9</option>
+              <option value="10">Level 10</option>
+            </select>
+            <select
+              value={serviceCriteriaFilter}
+              onChange={(e) => setServiceCriteriaFilter(e.target.value)}
+              className="filter-select"
+            >
+              <option value="">All Service Criteria</option>
+              <option value="4_years_audit">4+ Years Service (Audit)</option>
+              <option value="18_years_qualifying">18+ Years Qualifying Service</option>
+              <option value="5_years_before_retirement">5 Years Before Retirement</option>
+              <option value="30_years_service">30+ Years Service</option>
+            </select>
+            <select
+              value={industrialFilter}
+              onChange={(e) => setIndustrialFilter(e.target.value)}
+              className="filter-select"
+            >
+              <option value="">All Categories</option>
+              <option value="Industrial">Industrial</option>
+              <option value="Non-Industrial">Non-Industrial</option>
+            </select>
+          </div>
+
+          <div className="print-button-container no-print">
+            <button onClick={handlePrint} className="print-button">
+              <i className="fas fa-print"></i> Print
+            </button>
+          </div>
+
+          <div className="table-section">
+            <div className="table-wrapper">
+              {filteredData.length > 0 ? (
+                <table className="details-table">
+                  <thead>
+                    <tr>
+                      <th>Sl No</th>
+                      <th>Army Number</th>
+                      <th>Fac/Wing</th>
+                      <th>Trade</th>
+                      <th>Name</th>
+                      <th>GPF/PRAN No</th>
+                      <th>Caste</th>
+                      <th>DoB</th>
+                      <th>DoA</th>
+                      <th>DoR</th>
+                      <th>DoP</th>
+                      <th>Industrial/Non-Industrial</th>
+                      <th>Pay Level</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredData.map((row) => (
+                      <tr key={row.slNo}>
+                        <td>{row.slNo}</td>
+                        <td>{row.armyNumber}</td>
+                        <td>{row.facWing}</td>
+                        <td>{row.trade}</td>
+                        <td>{row.name}</td>
+                        <td>{row.gpfPranNo}</td>
+                        <td>{row.caste}</td>
+                        <td>{formatDate(row.dob)}</td>
+                        <td>{formatDate(row.doa)}</td>
+                        <td>{formatDate(row.dor)}</td>
+                        <td>{formatDate(row.dop)}</td>
+                        <td>{row.industrial}</td>
+                        <td>{row.payLevel}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <div className="no-results">
+                  <p>No details found for the given search criteria.</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </>
       )}
+      {activePage === 'attendance' && <Attendance />}
+      {activePage === 'leave' && <Leave/>}
+      {activePage === 'registration' && <Registration />}
     </div>
-      )}
-
-
-{activePage === 'attendance' && (
-        <div>
-          <Attendance />
-        </div>
-      )}
-
-
-{activePage === 'leave' && (
-        <div>
-          <h2>Leave Management</h2>
-          <p>This is the Leave Management page. Add your leave details here.</p>
-        </div>
-      )}
-
-
-{activePage === 'registration' && (
-        <div>
-          <Registration />
-        </div>
-      )}
-      </div>
   );
 }
 

@@ -32,6 +32,7 @@ const Registration = () => {
         modeOfAppointment: '',
         fr56j: '',
         group: '',
+        ind: '',
         education: '',
         bloodGroup: '',
         panNumber: '',
@@ -206,6 +207,15 @@ const Registration = () => {
                         <label>Directorate</label>
                         <input type="text" name="directorate" value={formData.directorate} onChange={handleChange} />
                     </div>
+                    <div className="form-group">
+                        <label>Group</label>
+                        <select name="group" value={formData.group} onChange={handleChange}>
+                            <option value="">Select Group</option>
+                            <option value="a">A</option>
+                            <option value="b">B</option>
+                            <option value="c">C</option>
+                        </select>
+                    </div>
                 </div>
 
                 {/* Line 2 */}
@@ -228,6 +238,14 @@ const Registration = () => {
                             <option value="">Select Faculty</option>
                             <option value="vishuny">Vishuny</option>
                             <option value="bantu">Bantu</option>
+                        </select>
+                    </div>
+                    <div className="form-group">
+                        <label>Ind/Non-Ind</label>
+                        <select name="ind" value={formData.ind} onChange={handleChange}>
+                            <option value="">Select </option>
+                            <option value="a">Industrial</option>
+                            <option value="b">Non-Industrial</option>
                         </select>
                     </div>
                 </div>
@@ -388,15 +406,7 @@ const Registration = () => {
                         <label>FR56(J)</label>
                         <input type="text" name="fr56j" value={formData.fr56j} onChange={handleChange} placeholder="If applicable" />
                     </div>
-                    <div className="form-group">
-                        <label>Group</label>
-                        <select name="group" value={formData.group} onChange={handleChange}>
-                            <option value="">Select Group</option>
-                            <option value="a">A</option>
-                            <option value="b">B</option>
-                            <option value="c">C</option>
-                        </select>
-                    </div>
+                    
                 </div>
 
                 {/* Line 7 */}
@@ -668,6 +678,7 @@ const Registration = () => {
                         <div key={index} className="family-member-container">
                             <div className="section-header">
                                 <h4>Family Member {index + 1}</h4>
+                                <div className="spacer"></div>
                                 <button 
                                     type="button" 
                                     className="delete-button"

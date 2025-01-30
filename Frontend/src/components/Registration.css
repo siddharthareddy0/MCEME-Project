@@ -71,7 +71,7 @@
 .form-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: 0.20rem;
     margin-bottom: 1rem;
     align-items: center;
     position: relative;
@@ -84,7 +84,7 @@
     position: relative;
     display: flex;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: 0.3rem;
 }
 
 .form-group label {
@@ -163,12 +163,23 @@
     transform: scale(1.1);
 }
 
-.section-header .delete-button {
+.section-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.section-header h4 {
     margin: 0;
-    margin-left: 8px;
-    width: 24px;
-    height: 24px;
-    font-size: 14px;
+    flex: 0 0 auto;
+}
+
+.section-header .spacer {
+    flex: 1;
+}
+
+.section-header .delete-button {
+    margin-left: auto;
 }
 
 .probation-container,
