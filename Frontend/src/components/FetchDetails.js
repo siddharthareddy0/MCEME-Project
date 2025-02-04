@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Attendance from './attendance';
 import Registration from './Registration';
 import Leave from './LeaveManagement';
+import Header from './Header';
 import './Fetch.css';
 
 function FetchDetails() {
@@ -121,10 +122,11 @@ function FetchDetails() {
 
   return (
     <div className="fetch-details-container">
-      <div className="header no-print">
+      {/* <div className="header no-print">
         <img src="/logo.png" alt="Logo" className="logo" />
         <h1>MCEME</h1>
-      </div>
+      </div> */}
+      <Header />
 
       <div className="dashboard-menu no-print">
         <button onClick={() => setActivePage('fetchDetails')}>Fetch Details</button>
@@ -277,14 +279,13 @@ function FetchDetails() {
               <option value="Non-Industrial">Non-Industrial</option>
             </select>
           </div>
-
-          <div className="print-button-container no-print">
-            <button onClick={handlePrint} className="print-button">
-              <i className="fas fa-print"></i> Print
-            </button>
-          </div>
-
           <div className="table-section">
+            <div className="table-head">
+              <h2>Fetch Details</h2>
+              <button onClick={handlePrint} className="print-button no-print">
+                <i className="fas fa-print"></i> Print
+              </button>
+            </div>
             <div className="table-wrapper">
               {filteredData.length > 0 ? (
                 <table className="details-table">

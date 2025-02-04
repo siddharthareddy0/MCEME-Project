@@ -10,11 +10,16 @@
   gap: 10px;
   margin-bottom: 20px;
 }
-
+.print-button-container {
+  display: inline;
+  text-align:right;
+  margin: 10px 0;
+  margin-left: 200px;
+}
 .print-button,
 .back-button {
   padding: 8px 12px;
-  background-color: #4B5320;
+  background-color: #173B45;
   color: white;
   border: none;
   border-radius: 4px;
@@ -32,12 +37,13 @@
 
 .print-button i,
 .back-button i {
+  background-color: #173B45;
   font-size: 12px;
 }
 
 .print-button:hover,
 .back-button:hover {
-  background-color: #556B2F;
+  background-color: #173B45;
   transform: translateY(-1px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -62,7 +68,7 @@
 }
 
 .attendance-table th {
-  background-color: #4B5320;
+  background-color: #80C4E9;
   color: white;
   font-weight: 700;
   text-transform: uppercase;
@@ -71,7 +77,7 @@
 }
 
 .attendance-table tbody tr:hover {
-  background-color: #E6E9D8;
+  background-color: #A0DEFF;
 }
 
 .fac-link {
@@ -87,16 +93,36 @@
 
 .total-row td {
   font-weight: 700;
-  border-top: 2px solid #4B5320;
+  border-top: 2px solid #173B45;
 }
 
 h2 {
-  color: #4B5320;
+  color: #173B45;
   font-size: 24px;
   font-weight: 700;
   margin-bottom: 20px;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+.table-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.table-head h2 {
+  flex-grow: 1;
+  text-align: center;
+  margin: 0;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 /* Print styles */
@@ -124,16 +150,21 @@ h2 {
   }
 
   .header-actions,
-  .back-button {
+  .back-button,
+  .button-group {
     display: none !important;
   }
 
   h2 {
     color: #000 !important;
-    font-size: 28px !important;
+    font-size: 24px !important;
     font-weight: 800 !important;
-    margin-bottom: 30px !important;
+    margin-bottom: 10px !important;
     text-align: center !important;
+  }
+
+  .table-head {
+    margin-bottom: 10px;
   }
 
   .attendance-table {
@@ -145,7 +176,7 @@ h2 {
   }
 
   .attendance-table th {
-    background-color: #4B5320 !important;
+    background-color: #173B45 !important;
     color: #000 !important;
     border: 1px solid #000 !important;
     font-weight: 800 !important;

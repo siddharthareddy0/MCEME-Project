@@ -1,19 +1,21 @@
 .header {
     height: 100px;
-    margin: 10px;
+    margin: 2px;
     display: flex;
     gap: 50px;
     justify-content: center;
     align-items: center;
-    background-color: #2f4f4f;
+    background-color: #80C4E9;
     padding: 10px 10px;
-    color: #f0e68c;
+    color: #173B45;
     border-radius: 10px;
+    margin-top: 10px;
   }
   .header div{
     font-size: 100px;
   }
-  .logo {
-    
-    width: 50px;
-  }
+   .logo {
+    display: flex;
+    width: 100px;
+  height: 100px;
+  } 

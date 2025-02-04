@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './attendance.css';
 import { FaPrint, FaArrowLeft } from 'react-icons/fa';
 
+// Function to handle print
+const handlePrint = () => {
+  window.print();
+};
+
 function Attendance() {
   const [showDetailView, setShowDetailView] = useState(false);
   const [selectedFac, setSelectedFac] = useState(null);
@@ -77,8 +82,11 @@ function Attendance() {
     calculateSummary();
   }, []);
 
-  const handlePrint = () => {
-    window.print();
+  const formatMilitaryDate = (date) => {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = date.toLocaleString('default', { month: 'short' }).toUpperCase();
+    const year = date.getFullYear();
+    return `${day} ${month} ${year}`;
   };
 
   const handleFacClick = (fac) => {
@@ -93,20 +101,14 @@ function Attendance() {
 
   return (
     <div className="attendance-container">
-      <div className="header-actions">
-        <button onClick={handlePrint} className="print-button">
-          <FaPrint /> Print
-        </button>
-        {showDetailView && (
-          <button onClick={handleBack} className="back-button">
-            <FaArrowLeft /> Back
-          </button>
-        )}
-      </div>
-
       {!showDetailView ? (
         <div className="main-table-container">
-          <h2>Attendance Overview</h2>
+          <div className="table-head">
+            <h2>PARADE STATE FOR {formatMilitaryDate(new Date())} OF CDEs MCEME</h2>
+            <button onClick={handlePrint} className="print-button no-print">
+              <FaPrint /> Print
+            </button>
+          </div>
           <table className="attendance-table">
             <thead>
               <tr>
@@ -151,8 +153,18 @@ function Attendance() {
           </table>
         </div>
       ) : (
-        <div className="detailed-table-container">
-          <h2>{selectedFac} - Detailed View</h2>
+        <div className="detail-view-container">
+          <div className="table-head">
+            <h2>{selectedFac} STAFF PARADE STATE AS ON {formatMilitaryDate(new Date())}</h2>
+            <div className="button-group">
+              <button onClick={handleBack} className="back-button">
+                <FaArrowLeft /> Back
+              </button>
+              <button onClick={handlePrint} className="print-button">
+                <FaPrint /> Print
+              </button>
+            </div>
+          </div>
           <table className="attendance-table">
             <thead>
               <tr>

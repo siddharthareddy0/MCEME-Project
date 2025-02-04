@@ -4,213 +4,254 @@ body {
   margin: 0;
   padding: 0;
   background-color: #f5f5f5;
-  overflow-x: hidden;
 }
 
 /* Main Container */
 .leave-management {
-  max-width: 100%;
-  margin: 20px auto;
   padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   overflow-x: auto;
 }
 
-/* Title */
-.title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #556b2f;
+/* Main Header */
+.header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
+
+.header h2 {
+  margin: 0;
+  font-size: 24px;
+  color: black;
+}
+
+
 
 /* Table Styling */
 .leave-table-container {
+  margin: 0 auto;
   width: 100%;
-  overflow-x: auto;
+  max-width: 100%;
+  padding: 0 20px;
 }
 
 .leave-table {
   width: 100%;
-  max-width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
-  table-layout: fixed; /* Ensures even column distribution */
+  margin-top: 20px;
+  table-layout: fixed;
 }
 
 /* Table Headers & Cells */
 .leave-table th,
 .leave-table td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 12px;
   text-align: left;
-  font-size: 14px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .leave-table th {
-  background-color: #556b2f;
+  background-color: #80C4E9;
   color: white;
-  font-weight: bold;
 }
 
-/* Row Styling */
-.leave-table tr:nth-child(even) {
-  background-color: #f0f4eb;
+.leave-table th:nth-child(1) {
+  width: 10%;
 }
 
-.leave-table tr:hover {
-  background-color: #fdf8e4;
+.leave-table th:nth-child(2) {
+  width: 30%;
+}
+
+.leave-table th:nth-child(3) {
+  width: 20%;
+}
+
+.leave-table th:nth-child(4) {
+  width: 20%;
+}
+
+.leave-table th:nth-child(5) {
+  width: 20%;
 }
 
 /* Clickable Name */
-.leave-table td.clickable {
+.name-button {
+  background: none;
+  border: none;
+  color: black;
+  text-decoration: none;
   cursor: pointer;
-  color: #1a73e8;
+  padding: 0;
+  font-weight: normal;
+}
+
+.name-button:hover {
   text-decoration: underline;
 }
 
-.leave-table td.clickable:hover {
-  background-color: #d0e7ff;
+/* Employee Details Page */
+.application-page {
+  padding: 20px;
 }
 
-/* Buttons Styling */
-.action-buttons {
+.application-header {
   display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-.approve-btn,
-.reject-btn,
-.print-btn {
-  padding: 6px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 12px;
-  width: 80px;
-  text-align: center;
-}
-
-.approve-btn {
-  background-color: #4caf50;
-  color: white;
-  border: none;
-}
-
-.approve-btn:hover {
-  background-color: #45a049;
-}
-
-.reject-btn {
-  background-color: #f44336;
-  color: white;
-  border: none;
-}
-
-.reject-btn:hover {
-  background-color: #d32f2f;
-}
-
-.print-btn {
-  background-color: #556b2f;
-  color: white;
-  border: none;
-}
-
-.print-btn:hover {
-  background-color: #6b8e23;
-}
-
-/* Back Button */
 .back-button {
-  float: right;
   padding: 8px 16px;
-  background-color: #556b2f;
+  background-color: #666;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-bottom: 10px;
 }
 
 .back-button:hover {
-  background-color: #445624;
+  background-color: #555;
 }
 
-/* Leave History Container */
-.history-container {
-  margin-top: 20px;
-  padding: 15px;
-  background-color: #f9f9f9;
+.application-content {
+  display: flex;
+  gap: 20px;
+}
+
+.application-form {
+  flex: 1;
+  background-color: #f5f5f5;
+  padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.history-container h3 {
-  font-size: 20px;
-  margin-bottom: 10px;
-  color: #556b2f;
+.right-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.history-table {
-  width: 100%;
-  border-collapse: collapse;
+.form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.history-table th,
-.history-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: left;
-  font-size: 14px;
+.form-group {
+  display: flex;
+  gap: 10px;
 }
 
-.history-table th {
-  background-color: #556b2f;
-  color: white;
+.form-group label {
+  min-width: 150px;
   font-weight: bold;
 }
 
-.history-table tr:nth-child(even) {
-  background-color: #f0f4eb;
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.form-actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.form-actions button:nth-child(1) {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.form-actions button:nth-child(2) {
+  background-color: #f44336;
+  color: white;
+}
+
+.form-actions button:last-child {
+  background-color: #2196F3;
+  color: white;
+}
+
+/* Leave Details Container */
+.leave-history,
+.leave-balance {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.leave-history table,
+.leave-balance table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.leave-history th,
+.leave-history td,
+.leave-balance th,
+.leave-balance td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.leave-history th,
+.leave-balance th {
+  background-color: #80C4E9;
+  color: white;
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+  .application-content {
+    flex-direction: column;
+  }
+  
+  .right-panel {
+    margin-top: 20px;
+  }
+}
+
 @media (max-width: 768px) {
-  .leave-table-container {
-    overflow-x: auto;
+  .title {
+    font-size: 24px;
   }
 
-  .leave-table {
+  .subtitle {
+    font-size: 18px;
+  }
+
+  .leave-table th,
+  .leave-table td,
+  .history-table th,
+  .history-table td,
+  .balance-table th,
+  .balance-table td {
+    padding: 8px;
     font-size: 12px;
+    min-width: 80px;
+  }
+
+  .action-buttons-vertical {
+    min-width: 80px;
   }
 
   .approve-btn,
   .reject-btn,
   .print-btn {
-    font-size: 10px;
-    padding: 4px 6px;
-    width: auto;
-  }
-
-  .action-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .history-container {
-    padding: 10px;
-  }
-
-  .history-table th,
-  .history-table td {
+    padding: 6px 8px;
     font-size: 12px;
   }
 }
