@@ -17,7 +17,7 @@
   background-color: #80C4E9;
   color: black;
   padding: 10px;
-  margin-top: 10px;
+  margin-top: 0px;
   border-radius: 10px;
 }
 
@@ -76,9 +76,9 @@
 
 .table-section {
   margin: 20px 0;
-  background: white;
+  background: F2F9FF;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
   padding: 20px;
   padding-top: 10px;
 }

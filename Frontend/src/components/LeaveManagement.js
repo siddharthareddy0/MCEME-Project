@@ -44,11 +44,22 @@ const LeaveManagement = () => {
   };
 
   const handleDecision = (id, decision) => {
-    setApplications((prevApplications) =>
-      prevApplications.map((app) =>
-        app.id === id ? { ...app, status: decision } : app
-      )
-    );
+    // Show confirmation popup
+    const confirmMessage = `Are you sure you want to ${decision.toLowerCase()} this leave application?`;
+    if (window.confirm(confirmMessage)) {
+      setApplications((prevApplications) =>
+        prevApplications.map((app) =>
+          app.id === id ? { ...app, status: decision } : app
+        )
+      );
+      // Update selectedEmployee status
+      setSelectedEmployee(prev => ({
+        ...prev,
+        status: decision
+      }));
+      // Show success message
+      alert(`Leave application has been ${decision.toLowerCase()}`);
+    }
   };
 
   const handlePrint = (app) => {

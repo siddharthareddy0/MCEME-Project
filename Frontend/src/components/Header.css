@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 .header {
     height: 100px;
     margin: 2px;
@@ -10,9 +11,12 @@
     color: #173B45;
     border-radius: 10px;
     margin-top: 10px;
+    margin-bottom: 10px;
   }
   .header div{
-    font-size: 100px;
+    font-family: 'Playfair Display', serif;
+    font-size: 250%;
+    overflow-x: auto;
   }
    .logo {
     display: flex;

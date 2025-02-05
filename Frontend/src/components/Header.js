@@ -7,7 +7,7 @@ function Header() {
       <div className="logo no-print">
         <img src="logo1.png" alt=""/>
       </div>
-      <div className="organization-name no-print">MCEME
+      <div className="organization-name no-print"><b>Military College of Electronics and Mechanical Engineering</b> 
       </div>
       <div className="logo no-print">
         <img src="logo1.png" alt=""/>
