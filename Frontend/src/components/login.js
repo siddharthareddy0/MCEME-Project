@@ -4,13 +4,13 @@ import './login.css';
 import Header from './Header';
 import AdminPage from './FetchDetails';
 // import FetchDetails from './FetchDetails';
-import UserPage from './user';
+import UserPage from './UserFetchDetails';
 
 // Dummy authentication data
 const users = [
   { username: 'admin', password: 'admin123', role: 'admin' },
-  { username: 'user1', password: 'user123', role: 'user', faculty: 'fel' },
-  { username: 'user2', password: 'user456', role: 'user', faculty: 'feme' },
+  { username: 'user1', password: 'user123', role: 'user', faculty: 'FEL' },
+  { username: 'user2', password: 'user456', role: 'user', faculty: 'FDE' },
 ];
 
 function App() {
@@ -43,7 +43,7 @@ function App() {
   };
 
   if (page === 'admin') return <AdminPage />;
-  if (page === 'user') return <UserPage />;
+  if (page === 'user') return <UserPage userFaculty={faculty.toUpperCase()} />;
 
   return (
     <div className="App">
@@ -90,10 +90,36 @@ function App() {
                 onChange={(e) => setFaculty(e.target.value)}
               >
                 <option value="">Select Faculty</option>
-                <option value="fel">FEL</option>
-                <option value="feme">FEME</option>
-                <option value="udc">UDC</option>
-                <option value="ldc">LDC</option>
+                <option value="Budget Cell">Budget Cell</option>
+              <option value="FAE">FAE</option>
+              <option value="HQ Trg Wing">HQ Trg Wing</option>
+              <option value="HQ Coy">HQ Coy</option>
+              <option value="MTS">MTS</option>
+              <option value="SDD">SDD</option>
+              <option value="FEMT">FEMT</option>
+              <option value="Col Adm Sectt">Col Adm Sectt</option>
+              <option value="FEME">FEME</option>
+              <option value="JCO Mess">JCO Mess</option>
+              <option value="Offr Mess">Offr Mess</option>
+              <option value="CTW">CTW</option>
+              <option value="Mag 5">Mag 5</option>
+              <option value="EMESA">EMESA</option>
+              <option value="FDE">FDE</option>
+              <option value="Comdt Sectt">Comdt Sectt</option>
+              <option value="SM Br">SM Br</option>
+              <option value="FEL">FEL</option>
+              <option value="A Coy">A Coy</option>
+              <option value="Fin Sec">Fin Sec</option>
+              <option value="Est Civ Sec">Est Civ Sec</option>
+              <option value="Adjt Sec">Adjt Sec</option>
+              <option value="E Coy">E Coy</option>
+              <option value="MTO">MTO</option>
+              <option value="QM Sec">QM Sec</option>
+              <option value="QM Fire Stn">QM Fire Stn</option>
+              <option value="MCEME Liby">MCEME Liby</option>
+              <option value="AA&QMG">AA&QMG</option>
+              <option value="Est (O) Civ Sec">Est (O) Civ Sec</option>
+              <option value="BSO">BSO</option>
               </select>
             </div>
           )}

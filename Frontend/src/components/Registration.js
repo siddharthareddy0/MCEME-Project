@@ -43,6 +43,7 @@ const Registration = () => {
         ind: '',
         education: '',
         bloodGroup: '',
+        cat: '',
         panNumber: '',
         identificationMarks: '',
         policeVerificationNo: '',
@@ -54,6 +55,8 @@ const Registration = () => {
         ifscCode: '',
         courtCase: 'no',
         courtName: '',
+        audit: 'no',
+        dateofaudit: '',
         penalty: 'no',
         penaltyRemarks: '',
         mobileNo: '',
@@ -177,15 +180,147 @@ const Registration = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Form Data:', formData);
-        setNotificationMessage('Form Submitted Successfully!');
-        setTimeout(() => setNotificationMessage(''), 2000); // Hide after 3 seconds
+        const { panNumber, mobileNo, uidNo, basicPay, emailId, bankAccountNumber } = formData;
+        const panRegex = /^[A-Za-z0-9]{10}$/;
+        const mobileRegex = /^[0-9]{10}$/;
+        const uidRegex = /^[0-9]{12}$/;
+        const basicPayRegex = /^[0-9]+$/;
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const accountNumberRegex = /^[0-9]{12}$/;
+
+        if (!panRegex.test(panNumber)) {
+            alert('PAN Number must be 10 alphanumeric characters.');
+            return;
+        }
+        if (!mobileRegex.test(mobileNo)) {
+            alert('Mobile Number must be 10 digits.');
+            return;
+        }
+        if (!uidRegex.test(uidNo)) {
+            alert('UID Number must be 12 digits.');
+            return;
+        }
+        if (!basicPayRegex.test(basicPay)) {
+            alert('Basic Pay must be a number.');
+            return;
+        }
+        if (!emailRegex.test(emailId)) {
+            alert('Email ID must be a valid email address.');
+            return;
+        }
+        if (!accountNumberRegex.test(bankAccountNumber)) {
+            alert('Account Number must be 12 digits.');
+            return;
+        }
+
+        if (
+            formData.command &&
+            formData.gpfPran &&
+            formData.directorate &&
+            formData.armyNo &&
+            formData.designation &&
+            formData.faculty &&
+            formData.firstName &&
+            formData.lastName &&
+            formData.gender &&
+            formData.category &&
+            formData.religion &&
+            formData.dateOfBirth &&
+            formData.dateOfAppointment &&
+            formData.modeOfAppointment &&
+            formData.panNumber &&
+            formData.mobileNo &&
+            formData.uidNo &&
+            formData.basicPay
+        ) {
+            console.log('Form Data:', formData);
+            setNotificationMessage('Form Submitted Successfully!');
+            setTimeout(() => setNotificationMessage(''), 2000); // Hide after 3 seconds
+            setFormData({
+                command: '',
+                gpfPran: '',
+                directorate: '',
+                armyNo: '',
+                designation: '',
+                faculty: '',
+                firstName: '',
+                middleName: '',
+                lastName: '',
+                gender: '',
+                category: '',
+                religion: '',
+                dateOfBirth: '',
+                dateOfAppointment: '',
+                dateOfRetirement: '',
+                modeOfAppointment: '',
+                fr56j: '',
+                group: '',
+                ind: '',
+                education: '',
+                bloodGroup: '',
+                cat: '',
+                panNumber: '',
+                identificationMarks: '',
+                policeVerificationNo: '',
+                policeVerificationDate: '',
+                marriageDoPtII: '',
+                kindredRollDoPtII: '',
+                bankAccountNumber: '',
+                bankName: '',
+                ifscCode: '',
+                courtCase: 'no',
+                courtName: '',
+                audit: 'no',
+                dateofaudit: '',
+                penalty: 'no',
+                penaltyRemarks: '',
+                mobileNo: '',
+                emailId: '',
+                uidNo: '',
+                macp: '',
+                promotion: 'no',
+                promotions: [initialPromotionData],
+                permanentAddress: '',
+                temporaryAddress: '',
+                discpCases: 'no',
+                discpRemarks: '',
+                probationPeriod: 'no',
+                probations: [initialProbationData],
+                confirmedDate: '',
+                familyMembers: [initialFamilyMemberData],
+                ltcTaDa: '',
+                toaSosInMceme: '',
+                payLevel: '',
+                basicPay: '',
+                postings: [initialPostingData]
+            });
+        }
     };
 
     const handleUpdate = () => {
         console.log('Updating Form Data:', formData);
         setNotificationMessage('Form Updated Successfully!');
         setTimeout(() => setNotificationMessage(''), 2000); // Hide after 3 seconds
+    };
+
+    const handleretir = (e) => {
+        const { name, value } = e.target;
+        let updatedFormData = { ...formData, [name]: value };
+
+        // If date of appointment is selected, calculate retirement date (60 years later)
+        if (name === "dateOfAppointment") {
+            if(value){
+            let appointmentDate = new Date(value);
+            appointmentDate.setFullYear(appointmentDate.getFullYear() + 60); // Add 60 years
+            updatedFormData.dateOfRetirement = appointmentDate.toISOString().split('T')[0]; // Format YYYY-MM-DD
+            }
+            else {
+                // If appointment date is cleared, clear retirement date too
+                updatedFormData.dateOfRetirement = "";
+            }
+        }
+
+        setFormData(updatedFormData);
     };
 
     return (
@@ -199,22 +334,23 @@ const Registration = () => {
                     <div className="form-row">
                         <div className="form-group">
                             <label>Command</label>
-                            <input type="text" name="command" value={formData.command} onChange={handleChange} />
+                            <input type="text" name="command" value={formData.command} onChange={handleChange} required/>
                         </div>
                         <div className="form-group">
                             <label>GPF/PRAN</label>
-                            <input type="text" name="gpfPran" value={formData.gpfPran} onChange={handleChange} />
+                            <input type="text" name="gpfPran" value={formData.gpfPran} onChange={handleChange} required/>
                         </div>
                         <div className="form-group">
                             <label>Directorate</label>
-                            <input type="text" name="directorate" value={formData.directorate} onChange={handleChange} />
+                            <input type="text" name="directorate" value={formData.directorate} onChange={handleChange} required/>
                         </div>
                         <div className="form-group">
                             <label>Group</label>
-                            <select name="group" value={formData.group} onChange={handleChange}>
+                            <select name="group" value={formData.group} onChange={handleChange} required>
                                 <option value="">Select Group</option>
                                 <option value="a">A</option>
-                                <option value="b">B</option>
+                                <option value="b">B(Gazetted)</option>
+                                <option value="b">B(Non-Gazetted)</option>
                                 <option value="c">C</option>
                             </select>
                         </div>
@@ -224,11 +360,11 @@ const Registration = () => {
                     <div className="form-row">
                         <div className="form-group">
                             <label>Army Number</label>
-                            <input type="text" name="armyNo" value={formData.armyNo} onChange={handleChange} />
+                            <input type="text" name="armyNo" value={formData.armyNo} onChange={handleChange} required/>
                         </div>
                         <div className="form-group">
                             <label>Designation</label>
-                            <select name="designation" value={formData.designation} onChange={handleChange}>
+                            <select name="designation" value={formData.designation} onChange={handleChange} required>
                             <option value="">Select Designation</option>
                             <option value="barber">Barber</option>
                             <option value="book_binder">Book Binder</option>
@@ -275,7 +411,7 @@ const Registration = () => {
                         </div>
                         <div className="form-group">
                             <label>Faculty</label>
-                            <select name="faculty" value={formData.faculty} onChange={handleChange}>
+                            <select name="faculty" value={formData.faculty} onChange={handleChange} required>
                             <option value="">Select Faculty</option>
                             <option value="budget_cell">Budget Cell</option>
                             <option value="fae">FAE</option>
@@ -311,7 +447,7 @@ const Registration = () => {
                         </div>
                         <div className="form-group">
                             <label>Ind/Non-Ind</label>
-                            <select name="ind" value={formData.ind} onChange={handleChange}>
+                            <select name="ind" value={formData.ind} onChange={handleChange} required>
                                 <option value="">Select </option>
                                 <option value="a">Industrial</option>
                                 <option value="b">Non-Industrial</option>
@@ -323,7 +459,7 @@ const Registration = () => {
                     <div className="form-row">
                         <div className="form-group">
                             <label>First Name</label>
-                            <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} />
+                            <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required/>
                         </div>
                         <div className="form-group">
                             <label>Middle Name</label>
@@ -339,7 +475,7 @@ const Registration = () => {
                     <div className="form-row">
                         <div className="form-group">
                             <label>Gender</label>
-                            <select name="gender" value={formData.gender} onChange={handleChange}>
+                            <select name="gender" value={formData.gender} onChange={handleChange} required>
                                 <option value="">Select Gender</option>
                                 <option value="m">Male</option>
                                 <option value="f">Female</option>
@@ -348,7 +484,7 @@ const Registration = () => {
                         </div>
                         <div className="form-group">
                             <label>Caste</label>
-                            <select name="category" value={formData.category} onChange={handleChange}>
+                            <select name="category" value={formData.category} onChange={handleChange} required>
                             <option value="">Select Caste</option>
                             <option value="general">General</option>
                             <option value="obc">OBC</option>
@@ -358,11 +494,23 @@ const Registration = () => {
                         </div>
                         <div className="form-group">
                             <label>Religion</label>
-                            <select name="religion" value={formData.religion} onChange={handleChange}>
+                            <select name="religion" value={formData.religion} onChange={handleChange}required>
                                 <option value="">Select Religion</option>
                                 <option value="hindu">Hindu</option>
                                 <option value="muslim">Muslim</option>
+                                <option value="christian">Christian</option>
+                                <option value="sikh">Sikh</option>
+                                <option value="buddhist">Buddhist</option>
+                                <option value="other">Other</option>
                             </select>
+                        </div>
+                        <div className="form-group">
+                            <label>PH</label>
+                            <select name="cat" value={formData.cat} onChange={handleChange} required>
+                                <option value="">Select</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                                </select>
                         </div>
                     </div>
 
@@ -370,16 +518,20 @@ const Registration = () => {
                     <div className="form-row">
                         <div className="form-group">
                             <label>Date of Birth</label>
-                            <input type="date" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} />
+                            <input type="date" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} required/>
                         </div>
                         <div className="form-group">
                             <label>Date of Appointment</label>
-                            <input type="date" name="dateOfAppointment" value={formData.dateOfAppointment} onChange={handleChange} />
+                            <input type="date" name="dateOfAppointment" value={formData.dateOfAppointment} onChange={handleretir} required/>
                         </div>
                         <div className="form-group">
                             <label>Date of Retirement</label>
-                            <input type="date" name="dateOfRetirement" value={formData.dateOfRetirement} onChange={handleChange} />
+                            <input type="date" name="dateOfRetirement" value={formData.dateOfRetirement} readOnly />
                         </div>
+                        {/* <div className="form-group">
+                            <label>Date of Retirement</label>
+                            <input type="date" name="dateOfRetirement" value={formData.dateOfRetirement} onChange={handleChange} />
+                        </div> */}
                     </div>
 
                     {/* New Personal Details */}
@@ -404,10 +556,25 @@ const Registration = () => {
                         </div>
                         <div className="form-group">
                             <label>PAN Number</label>
-                            <input type="text" name="panNumber" value={formData.panNumber} onChange={handleChange} />
+                            <input type="text" name="panNumber" value={formData.panNumber} onChange={handleChange} required/>
                         </div>
                     </div>
 
+                    {/* Line 9 */}
+                    <div className="form-row">
+                        <div className="form-group">
+                            <label>Mobile Number</label>
+                            <input type="tel" name="mobileNo" value={formData.mobileNo} onChange={handleChange} required/>
+                        </div>
+                        <div className="form-group">
+                            <label>Email ID</label>
+                            <input type="email" name="emailId" value={formData.emailId} onChange={handleChange}/>
+                        </div>
+                        <div className="form-group">
+                            <label>UID Number</label>
+                            <input type="text" name="uidNo" value={formData.uidNo} onChange={handleChange} required/>
+                        </div>
+                    </div>
                     {/* Identification Marks */}
                     <div className="form-row">
                         <div className="form-group full-width">
@@ -420,29 +587,17 @@ const Registration = () => {
                             ></textarea>
                         </div>
                     </div>
-
-                    {/* Verification Details */}
+                    {/* Line 12 - Addresses */}
                     <div className="form-row">
-                        <div className="form-group">
-                            <label>Police Verification No</label>
-                            <input type="text" name="policeVerificationNo" value={formData.policeVerificationNo} onChange={handleChange} />
+                        <div className="form-group full-width">
+                            <label>Permanent Address</label>
+                            <textarea name="permanentAddress" value={formData.permanentAddress} onChange={handleChange}></textarea>
                         </div>
-                        <div className="form-group">
-                            <label>Police Verification Date</label>
-                            <input type="date" name="policeVerificationDate" value={formData.policeVerificationDate} onChange={handleChange} />
+                        <div className="form-group full-width">
+                            <label>Temporary Address</label>
+                            <textarea name="temporaryAddress" value={formData.temporaryAddress} onChange={handleChange}></textarea>
                         </div>
                     </div>
-                    <div className="form-row">
-                        <div className="form-group">
-                            <label>Marriage DO Pt II</label>
-                            <input type="text" name="marriageDoPtII" value={formData.marriageDoPtII} onChange={handleChange} />
-                        </div>
-                        <div className="form-group">
-                            <label>Kindred Roll DO Pt II</label>
-                            <input type="text" name="kindredRollDoPtII" value={formData.kindredRollDoPtII} onChange={handleChange} />
-                        </div>
-                    </div>
-
                     {/* Bank Details */}
                     <div className="form-section">
                         <h3>Bank Details</h3>
@@ -461,15 +616,15 @@ const Registration = () => {
                             </div>
                         </div>
                     </div>
-
                     {/* Line 6 */}
                     <div className="form-row">
                         <div className="form-group">
                             <label>Mode of Appointment</label>
-                            <select name="modeOfAppointment" value={formData.modeOfAppointment} onChange={handleChange}>
+                            <select name="modeOfAppointment" value={formData.modeOfAppointment} onChange={handleChange} required>
                                 <option value="">Select Mode</option>
                                 <option value="direct">Direct</option>
-                                <option value="promotion">Promotion</option>
+                                <option value="compassionate">compassionate</option>
+                                <option value="Re-employed">Re-employed</option>
                             </select>
                         </div>
                         <div className="form-group">
@@ -477,6 +632,42 @@ const Registration = () => {
                             <input type="text" name="fr56j" value={formData.fr56j} onChange={handleChange} placeholder="If applicable" />
                         </div>
                         
+                    </div>
+                    {/* Verification Details */}
+                    <div className="form-row">
+                        <div className="form-group">
+                            <label>Police Verification No</label>
+                            <input type="text" name="policeVerificationNo" value={formData.policeVerificationNo} onChange={handleChange} required/>
+                        </div>
+                        <div className="form-group">
+                            <label>Police Verification Date</label>
+                            <input type="date" name="policeVerificationDate" value={formData.policeVerificationDate} onChange={handleChange} required/>
+                        </div>
+                    </div>
+                    <div className="form-row">
+                        <div className="form-group">
+                            <label>Marriage DO Pt II</label>
+                            <input type="text" name="marriageDoPtII" value={formData.marriageDoPtII} onChange={handleChange} required/>
+                        </div>
+                        <div className="form-group">
+                            <label>Kindred Roll DO Pt II</label>
+                            <input type="text" name="kindredRollDoPtII" value={formData.kindredRollDoPtII} onChange={handleChange} required/>
+                        </div>
+                    </div>
+                    <div className="form-row">
+                        <div className="form-group">
+                            <label>Audit</label>
+                            <select name="audit" value={formData.audit} onChange={handleChange}>
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                        </div>
+                        {formData.audit === 'yes' && (
+                            <div className="form-group">
+                                <label>Date of Audit</label>
+                                <input type="date" name="dateofaudit" value={formData.dateofaudit} onChange={handleChange} />
+                            </div>
+                        )}
                     </div>
 
                     {/* Line 7 */}
@@ -495,7 +686,23 @@ const Registration = () => {
                             </div>
                         )}
                     </div>
-
+                    {/* Line 13 - DISCP Cases */}
+                    <div className="form-row">
+                        <div className="form-group">
+                            <label>DISCP Cases</label>
+                            <select name="discpCases" value={formData.discpCases} onChange={handleChange}>
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                                <option value="none">None</option>
+                            </select>
+                        </div>
+                        {formData.discpCases === 'yes' && (
+                            <div className="form-group full-width">
+                                <label>DISCP Remarks</label>
+                                <textarea name="discpRemarks" value={formData.discpRemarks} onChange={handleChange}></textarea>
+                            </div>
+                        )}
+                    </div>
                     {/* Line 8 */}
                     <div className="form-row">
                         <div className="form-group">
@@ -513,21 +720,6 @@ const Registration = () => {
                         )}
                     </div>
 
-                    {/* Line 9 */}
-                    <div className="form-row">
-                        <div className="form-group">
-                            <label>Mobile Number</label>
-                            <input type="tel" name="mobileNo" value={formData.mobileNo} onChange={handleChange} />
-                        </div>
-                        <div className="form-group">
-                            <label>Email ID</label>
-                            <input type="email" name="emailId" value={formData.emailId} onChange={handleChange} />
-                        </div>
-                        <div className="form-group">
-                            <label>UID Number</label>
-                            <input type="text" name="uidNo" value={formData.uidNo} onChange={handleChange} />
-                        </div>
-                    </div>
 
                     {/* Line 10 */}
                     <div className="form-row">
@@ -535,9 +727,9 @@ const Registration = () => {
                             <label>MACP</label>
                             <select name="macp" value={formData.macp} onChange={handleChange}>
                                 <option value="">Select MACP</option>
-                                <option value="a">A</option>
-                                <option value="b">B</option>
-                                <option value="c">C</option>
+                                <option value="a">1st MACP</option>
+                                <option value="b">2st MACP</option>
+                                <option value="c">3st MACP</option>
                             </select>
                         </div>
                     </div>
@@ -588,36 +780,6 @@ const Registration = () => {
                                 <button type="button" onClick={handlePromotionAdd} className="add-button">
                                     Add Promotion
                                 </button>
-                            </div>
-                        )}
-                    </div>
-
-                    {/* Line 12 - Addresses */}
-                    <div className="form-row">
-                        <div className="form-group full-width">
-                            <label>Permanent Address</label>
-                            <textarea name="permanentAddress" value={formData.permanentAddress} onChange={handleChange}></textarea>
-                        </div>
-                        <div className="form-group full-width">
-                            <label>Temporary Address</label>
-                            <textarea name="temporaryAddress" value={formData.temporaryAddress} onChange={handleChange}></textarea>
-                        </div>
-                    </div>
-
-                    {/* Line 13 - DISCP Cases */}
-                    <div className="form-row">
-                        <div className="form-group">
-                            <label>DISCP Cases</label>
-                            <select name="discpCases" value={formData.discpCases} onChange={handleChange}>
-                                <option value="no">No</option>
-                                <option value="yes">Yes</option>
-                                <option value="none">None</option>
-                            </select>
-                        </div>
-                        {formData.discpCases === 'yes' && (
-                            <div className="form-group full-width">
-                                <label>DISCP Remarks</label>
-                                <textarea name="discpRemarks" value={formData.discpRemarks} onChange={handleChange}></textarea>
                             </div>
                         )}
                     </div>
@@ -691,7 +853,7 @@ const Registration = () => {
                         </div>
                         <div className="form-group">
                             <label>Basic Pay</label>
-                            <input type="number" name="basicPay" value={formData.basicPay} onChange={handleChange} />
+                            <input type="number" name="basicPay" value={formData.basicPay} onChange={handleChange} required/>
                         </div>
                     </div>
 
@@ -707,6 +869,7 @@ const Registration = () => {
                                             type="text"
                                             value={posting.unit}
                                             onChange={(e) => handlePostingChange(index, 'unit', e.target.value)}
+                                            required
                                         />
                                     </div>
                                     <div className="form-group">
@@ -714,7 +877,7 @@ const Registration = () => {
                                         <input
                                             type="date"
                                             value={posting.fromDate}
-                                            onChange={(e) => handlePostingChange(index, 'fromDate', e.target.value)}
+                                            onChange={(e) => handlePostingChange(index, 'fromDate', e.target.value)} required
                                         />
                                     </div>
                                     <div className="form-group">
@@ -722,7 +885,7 @@ const Registration = () => {
                                         <input
                                             type="date"
                                             value={posting.toDate}
-                                            onChange={(e) => handlePostingChange(index, 'toDate', e.target.value)}
+                                            onChange={(e) => handlePostingChange(index, 'toDate', e.target.value)} required
                                         />
                                     </div>
                                     <button 

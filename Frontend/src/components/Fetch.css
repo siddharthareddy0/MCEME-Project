@@ -19,6 +19,7 @@
   padding: 10px;
   margin-top: 0px;
   border-radius: 10px;
+  box-shadow: none;
 }
 
 .dashboard-menu button {
@@ -27,7 +28,18 @@
   color: black;
   font-size: 16px;
   cursor: pointer;
-  
+  padding: 5px 15px;
+  transition: color 0.2s;
+  box-shadow: none;
+  outline: none;
+}
+
+.dashboard-menu button:hover {
+  color: #1a5f8d;
+}
+
+.dashboard-menu button:not(:last-child) {
+  border-right: none;
 }
 
 .search-filter {
@@ -138,19 +150,56 @@
 }
 
 .details-table tbody tr:hover {
-  background-color: #f0f0f0;
+  background-color: #A0DEFF;
 }
+
+.status-select {
+  width: 90%;
+  padding: 4px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: inherit;
+}
+
+.status-select:focus {
+  outline: none;
+}
+
+.remarks-input {
+  width: 90%;
+  padding: 4px;
+  border: none;
+  background-color: transparent;
+  font-size: inherit;
+}
+
+.remarks-input:focus {
+  outline: none;
+}
+
+.attendance-table td {
+  position: relative;
+}
+
+.attendance-table td:has(.status-select),
+.attendance-table td:has(.remarks-input) {
+  padding: 4px;
+}
+
 .table-section h2 {
   color: #173B45;
   display: inline;
   justify-content: center;
 }
+
 .no-results {
   text-align: center;
   padding: 20px;
   color: #173B45;
   font-size: 16px;
 }
+
 @media (max-width: 768px) {
   .search-filter {
     flex-direction: column;
@@ -209,6 +258,15 @@
     padding: 4px;
   }
 
+  .status-select,
+  .remarks-input {
+    border: none;
+    background: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
   @page {
     size: landscape;
     margin: 1cm;
@@ -240,9 +298,7 @@
   width: fit-content;
   height: 32px;
 }
-.details-table tbody tr:hover {
-  background-color: #A0DEFF;
-}
+
 .print-button i {
   font-size: 12px;
 }
