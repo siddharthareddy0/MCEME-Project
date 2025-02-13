@@ -5,7 +5,7 @@
 }
 
 .fetch-details-container {
-  padding: 1rem;
+ /* padding: 1rem; */
   max-width: 100%;
   box-sizing: border-box;
   background: #F2F9FF;
@@ -16,30 +16,19 @@
   justify-content: space-around;
   background-color: #80C4E9;
   color: black;
-  padding: 10px;
+  padding: 5px;
   margin-top: 0px;
-  border-radius: 10px;
-  box-shadow: none;
+  /* border-radius: 10px; */
 }
 
 .dashboard-menu button {
   background: none;
   border: none;
   color: black;
-  font-size: 16px;
-  cursor: pointer;
-  padding: 5px 15px;
-  transition: color 0.2s;
-  box-shadow: none;
-  outline: none;
-}
-
-.dashboard-menu button:hover {
-  color: #1a5f8d;
-}
-
-.dashboard-menu button:not(:last-child) {
-  border-right: none;
+  font-size: 22px;
+  font-weight: 500;
+  font-family: 'Playfair Display', serif;
+  cursor: pointer;  
 }
 
 .search-filter {
@@ -51,6 +40,11 @@
   padding: 15px;
   background-color: #f5f5f5;
   border-radius: 8px;
+}
+
+.reset{
+  background-color: #173B45;
+  width: fit-content;
 }
 
 .search-filter input {
@@ -150,56 +144,19 @@
 }
 
 .details-table tbody tr:hover {
-  background-color: #A0DEFF;
+  background-color: #f0f0f0;
 }
-
-.status-select {
-  width: 90%;
-  padding: 4px;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  font-size: inherit;
-}
-
-.status-select:focus {
-  outline: none;
-}
-
-.remarks-input {
-  width: 90%;
-  padding: 4px;
-  border: none;
-  background-color: transparent;
-  font-size: inherit;
-}
-
-.remarks-input:focus {
-  outline: none;
-}
-
-.attendance-table td {
-  position: relative;
-}
-
-.attendance-table td:has(.status-select),
-.attendance-table td:has(.remarks-input) {
-  padding: 4px;
-}
-
 .table-section h2 {
   color: #173B45;
   display: inline;
   justify-content: center;
 }
-
 .no-results {
   text-align: center;
   padding: 20px;
   color: #173B45;
   font-size: 16px;
 }
-
 @media (max-width: 768px) {
   .search-filter {
     flex-direction: column;
@@ -258,15 +215,6 @@
     padding: 4px;
   }
 
-  .status-select,
-  .remarks-input {
-    border: none;
-    background: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  }
-
   @page {
     size: landscape;
     margin: 1cm;
@@ -281,7 +229,7 @@
   margin-left: 200px;
 }
 
-.print-button {
+.print-button1 {
   padding: 8px 12px;
   background-color: #173B45;
   color: white;
@@ -298,13 +246,88 @@
   width: fit-content;
   height: 32px;
 }
-
-.print-button i {
+.details-table tbody tr:hover {
+  background-color: #A1E3F9;
+}
+.print-button2 i {
   font-size: 12px;
 }
 
-.print-button:hover {
+.print-button1:hover {
   background-color: #173B45;
   transform: translateY(-1px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.leave-dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.leave-button {
+  background: none;
+  border: none;
+  color: black;
+  font-size: 22px;
+  font-weight: 500;
+  font-family: 'Playfair Display', serif;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.leave-button.active {
+  color: #173B45;
+  font-weight: 600;
+}
+
+.leave-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  min-width: 220px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 8px 0;
+  z-index: 1000;
+  margin-top: 8px;
+}
+
+.leave-dropdown-menu button {
+  display: block;
+  width: 100%;
+  padding: 12px 20px;
+  text-align: left;
+  border: none;
+  background: none;
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.leave-dropdown-menu button:hover {
+  background-color: #f5f5f5;
+  color: #173B45;
+}
+
+/* Add a subtle arrow to the dropdown */
+.leave-dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 0 8px 8px 8px;
+  border-style: solid;
+  border-color: transparent transparent white transparent;
+}
+
+@media print {
+  .leave-dropdown-container,
+  .leave-dropdown-menu {
+    display: none !important;
+  }
 }

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Header from './Header';
 import UserAttendance from './UserAttendance';
-import Leave from './LeaveManagement';
+import UserLeaveManagement from './UserLeaveManagement';
 import './Fetch.css';
 
 function UserFetchDetails({ userFaculty }) {  // userFaculty will be passed from login
@@ -13,6 +13,8 @@ function UserFetchDetails({ userFaculty }) {  // userFaculty will be passed from
   const [serviceCriteriaFilter, setServiceCriteriaFilter] = useState('');
   const [industrialFilter, setIndustrialFilter] = useState('');
   const [activePage, setActivePage] = useState('fetchDetails');
+  const [showLeaveDropdown, setShowLeaveDropdown] = useState(false);
+  const [selectedLeaveOption, setSelectedLeaveOption] = useState('');
 
   // Function to calculate years between two dates
   const calculateYears = (startDate, endDate) => {
@@ -99,6 +101,11 @@ function UserFetchDetails({ userFaculty }) {  // userFaculty will be passed from
     window.print();
   };
 
+  const handleLeaveOptionClick = (option) => {
+    setActivePage(option);
+    setShowLeaveDropdown(false);
+  };
+
   return (
     <div className="fetch-details-container">
       <Header />
@@ -106,7 +113,28 @@ function UserFetchDetails({ userFaculty }) {  // userFaculty will be passed from
       <div className="dashboard-menu no-print">
         <button onClick={() => setActivePage('fetchDetails')}>Fetch Details</button>
         <button onClick={() => setActivePage('attendance')}>Attendance</button>
-        <button onClick={() => setActivePage('leave')}>Leave</button>
+        <div className="leave-dropdown-container">
+          <button
+            className={`leave-button ${showLeaveDropdown ? 'active' : ''}`}
+            onMouseEnter={() => setShowLeaveDropdown(true)}
+            onClick={() => setShowLeaveDropdown(!showLeaveDropdown)}
+          >
+            Leave
+          </button>
+          {showLeaveDropdown && (
+            <div 
+              className="leave-dropdown-menu"
+              onMouseLeave={() => setShowLeaveDropdown(false)}
+            >
+              <button onClick={() => handleLeaveOptionClick('application')}>
+                Leave Application Form
+              </button>
+              <button onClick={() => handleLeaveOptionClick('status')}>
+                Leave Status
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       {activePage === 'fetchDetails' && (
@@ -271,7 +299,13 @@ function UserFetchDetails({ userFaculty }) {  // userFaculty will be passed from
         </>
       )}
       {activePage === 'attendance' && <UserAttendance userFaculty={userFaculty} />}
-      {activePage === 'leave' && <Leave />}
+      
+      {activePage === 'application' && (
+        <UserLeaveManagement option={activePage} />
+      )}
+      {activePage === 'status' && (
+        <UserLeaveManagement option={activePage} />
+      )}
     </div>
   );
 }

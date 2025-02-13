@@ -3,21 +3,21 @@
   max-width: 1400px;
   margin: 0 auto;
 }
-
+/* 
 .header-actions {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
   margin-bottom: 20px;
-}
+} */
 .print-button-container {
   display: inline;
   text-align:right;
   margin: 10px 0;
   margin-left: 200px;
 }
-.print-button,
-.back-button {
+.print-button3,
+.back-button3 {
   padding: 8px 12px;
   background-color: #173B45;
   color: white;
@@ -35,14 +35,14 @@
   height: 32px;
 }
 
-.print-button i,
-.back-button i {
+.print-button3 i,
+.back-button3 i {
   background-color: #173B45;
   font-size: 12px;
 }
 
-.print-button:hover,
-.back-button:hover {
+.print-button3:hover,
+.back-button3:hover {
   background-color: #173B45;
   transform: translateY(-1px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -190,6 +190,7 @@ h2 {
 }
 
 .attendance-submit {
+  margin-top: 20px;
   background-color: #173B45;
   color: white;
   border: none;
@@ -210,16 +211,27 @@ h2 {
 /* Print styles */
 @media print {
   @page {
-    size: A4 landscape;
+    size: A4 portrait;
     margin: 0.5cm 1cm;
   }
 
-  html, body {
-    width: 297mm;
+  /* html, body {
+    /* width: 297mm;
     height: 210mm;
     margin: 0;
     padding: 0;
-  }
+    page-break-after: avoid;
+  } 
+
+    html, body {
+      height: auto;
+    }
+    .print-content {
+      height: auto;
+    }
+    .print-form {
+      page-break-after: avoid;
+    } */
 
   body * {
     visibility: hidden;

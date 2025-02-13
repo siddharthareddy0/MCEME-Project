@@ -10,7 +10,7 @@ import UserPage from './UserFetchDetails';
 const users = [
   { username: 'admin', password: 'admin123', role: 'admin' },
   { username: 'user1', password: 'user123', role: 'user', faculty: 'FEL' },
-  { username: 'user2', password: 'user456', role: 'user', faculty: 'FDE' },
+  { username: 'user2', password: 'user456', role: 'user', faculty: 'HQ Adm Wg' },
 ];
 
 function App() {
@@ -34,8 +34,10 @@ function App() {
       setError('');
       if (role === 'admin') {
         setPage('admin');
+        localStorage.setItem('currentPath', '/admin');
       } else if (role === 'user') {
         setPage('user');
+        localStorage.setItem('currentPath', `/user/${faculty}`);
       }
     } else {
       setError('Invalid credentials. Please try again.');
@@ -43,7 +45,7 @@ function App() {
   };
 
   if (page === 'admin') return <AdminPage />;
-  if (page === 'user') return <UserPage userFaculty={faculty.toUpperCase()} />;
+  if (page === 'user') return <UserPage userFaculty={faculty} />;
 
   return (
     <div className="App">
@@ -120,6 +122,7 @@ function App() {
               <option value="AA&QMG">AA&QMG</option>
               <option value="Est (O) Civ Sec">Est (O) Civ Sec</option>
               <option value="BSO">BSO</option>
+              <option value="HQ Adm Wg">HQ Adm Wg</option>
               </select>
             </div>
           )}

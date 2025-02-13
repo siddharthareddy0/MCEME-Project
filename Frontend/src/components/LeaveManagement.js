@@ -37,6 +37,10 @@ const LeaveManagement = () => {
       address: "123 Main St, City",
       recommendation: "Recommended",
       sectionOfficer: "Capt. Smith",
+      sectionOfficerSignature: null,
+      recommendationDate: null,
+      estOfficerSignature: null,
+      approvalDate: null,
       status: "Pending",
       history: [
         {
@@ -77,6 +81,10 @@ const LeaveManagement = () => {
       address: "456 Oak St, Town",
       recommendation: "Not Recommended",
       sectionOfficer: "Lt. Johnson",
+      sectionOfficerSignature: null,
+      recommendationDate: null,
+      estOfficerSignature: null,
+      approvalDate: null,
       status: "Approved",
       history: [
         {
@@ -148,22 +156,26 @@ const LeaveManagement = () => {
   const handleDecision = useCallback(async (id, decision) => {
     try {
       setIsLoading(true);
-      // const response = await fetch('/api/leave-applications/${id}/decision', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ decision })
-      // });
-      // const data = await response.json();
+      const currentDate = new Date().toISOString().split('T')[0];
+      // TODO: In real implementation, get the est officer's signature from the backend
+      const estOfficerSignature = "Est. Officer Digital Signature"; // This should come from the backend
       
       setApplications((prevApplications) =>
         prevApplications.map((app) =>
-          app.id === id ? { ...app, status: decision } : app
+          app.id === id ? { 
+            ...app, 
+            status: decision,
+            estOfficerSignature,
+            approvalDate: currentDate
+          } : app
         )
       );
       
       setSelectedEmployee((prev) => ({
         ...prev,
-        status: decision
+        status: decision,
+        estOfficerSignature,
+        approvalDate: currentDate
       }));
 
       showNotification(`Leave application has been ${decision.toLowerCase()}!`);
@@ -180,113 +192,232 @@ const LeaveManagement = () => {
         throw new Error("Invalid application data for printing");
       }
 
-      // Create print content
-      const printContent = `
-        <div class="print-content ${app.status.toLowerCase()} ${app.status === 'Approved' ? 'approved' : app.status === 'Rejected' ? 'rejected' : ''}" 
-             data-watermark="${app.status === 'Approved' ? 'Approved' : app.status === 'Rejected' ? 'Rejected' : ''}">
-          <div class="print-header">
-            <h2>LEAVE APPLICATION</h2>
-            <h2>INDUSTRIAL AND NON INDUSTRIAL PERSONNEL</h2>
-          </div>
-          
-          <div class="print-form">
-            <div class="form-row">
-              <span>No</span>
-              <span class="underline" data-field="no">${app.id || ''}</span>
-              <span>Rank</span>
-              <span class="underline" data-field="rank">${app.rank || ''}</span>
-              <span>Name</span>
-              <span class="underline" data-field="name">${app.name || ''}</span>
-            </div>
-            
-            <div class="form-row">
-              <span>Sec</span>
-              <span class="underline" data-field="section">${app.section || ''}</span>
-              <span>here by request for 
-                <span class="leave-type selected">${app.type}</span> leave</span>
-            </div>
-            
-            <div class="form-row">
-              <span>extension of Leave for</span>
-              <span class="underline" data-field="days">${app.daysRequested || ''}</span>
-              <span>days from</span>
-              <span class="underline" data-field="date">${app.fromDate || ''}</span>
-              <span>to</span>
-              <span class="underline" data-field="date">${app.toDate || ''}</span>
-            </div>
-            
-            <div class="form-row">
-              <span>Reason</span>
-              <span class="underline" data-field="reason">${app.reason || ''}</span>
-            </div>
-            
-            <div class="form-row">
-              <span>Address on leave:</span>
-              <span class="underline" data-field="address">${app.address || ''}</span>
-            </div>
-
-            <div class="signature-row">
-              <div class="signature-left">
-                <span>Dated:</span>
-                <span class="underline" data-field="date">${new Date().toLocaleDateString()}</span>
-              </div>
-              <div class="signature-right">
-                <div class="signature-line">(Signature of the Indl)</div>
-              </div>
-            </div>
-
-            <div class="part-2">
-              <h3>PART II</h3>
-              <div class="recommendation-row">
-                <span class="recommend-option selected">${app.recommendation}</span>
-              </div>
-              
-              <div class="signature-row">
-                <div class="signature-left">
-                  <span>Dated:</span>
-                  <span class="underline" data-field="date">${new Date().toLocaleDateString()}</span>
-                </div>
-                <div class="signature-right">
-                  <div class="signature-line">(Signature of section officer)</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
-
       // Create a hidden iframe for printing
       const iframe = document.createElement('iframe');
       iframe.style.display = 'none';
       document.body.appendChild(iframe);
       
       // Write content to iframe
-      iframe.contentDocument.write(`
+      const printContent = `
         <!DOCTYPE html>
         <html>
           <head>
             <title>Leave Application</title>
             <style>
-              ${document.querySelector('style')?.innerHTML || ''}
-              ${Array.from(document.styleSheets)
-                .map(sheet => {
-                  try {
-                    return Array.from(sheet.cssRules)
-                      .map(rule => rule.cssText)
-                      .join('\n');
-                  } catch (e) {
-                    return '';
-                  }
-                })
-                .join('\n')}
+              @page {
+                size: A4;
+                margin: 1.5cm;
+              }
+              * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+              }
+              body {
+                font-family: Arial, sans-serif;
+                width: 100%;
+                height: 100%;
+              }
+              .print-content {
+                text-align: left;
+                margin: 0 auto;
+                padding: 30px;
+                width: 100%;
+                max-width: 900px;
+              }
+              .print-header {
+                text-align: center;
+                margin-bottom: 10px;
+                padding: 20px 0;
+              }
+              .print-header h2 {
+                margin: 10px 0;
+                font-size: 20px;
+                font-weight: bold;
+                letter-spacing: 1px;
+                text-decoration: underline;
+                text-underline-offset: 5px;
+              }
+              .print-form {
+                page-break-inside: avoid;
+                width: 100%;
+              }
+              .form-row {
+                margin: 25px 0;
+                display: flex;
+                align-items: center;
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+              }
+              .form-row span:not(.underline) {
+                white-space: nowrap;
+                padding-right: 10px;
+                font-size: 16px;
+              }
+              .underline {
+                border-bottom: 1px solid black;
+                padding: 2px 5px;
+                flex: 1;
+                min-width: 100px;
+                margin: 0 5px;
+                font-size: 16px;
+              }
+              .form-row-group {
+                display: flex;
+                align-items: center;
+                flex: 1;
+              }
+              .signature-row {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                margin-top: 100px;
+                align-items: flex-start;
+              }
+              .signature-left {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+              }
+              .signature-right {
+                text-align: center;
+                min-width: 250px;
+              }
+              .signature-box{
+                  margin-bottom: 20px;}
+              .part-2 {
+                margin-top: 40px;
+                text-align: center;
+                page-break-inside: avoid;
+                padding-top: 20px;
+              }
+              .part-2 h3 {
+                font-size: 18px;
+                font-weight: bold;
+                text-decoration: underline;
+                text-underline-offset: 5px;
+                margin: 15px 0;
+                text-transform: uppercase;
+              }
+              .recommendation-row {
+                margin: 20px 0;
+                text-align: center;
+              }
+              .recommend-option {
+                font-weight: bold;
+                text-decoration: underline;
+                padding: 5px 20px;
+              }
+              .approval-row {
+                margin: 20px 0;
+                text-align: center;
+              }
+              .approval-status {
+                font-weight: bold;
+                padding: 5px 20px;
+                text-decoration: underline;
+              }
+              @media print {
+                html, body {
+                  height: auto;
+                }
+                .print-content {
+                  height: auto;
+                }
+                .print-form {
+                  page-break-after: avoid;
+                }
+              }
             </style>
           </head>
           <body>
-            ${printContent}
+            <div class="print-content">
+              <div class="print-header">
+                <h2>LEAVE APPLICATION</h2>
+                <h2>INDUSTRIAL AND NON INDUSTRIAL PERSONNEL</h2>
+              </div>
+              
+              <div class="print-form">
+                <div class="form-row">
+                  <span>No</span>
+                  <span class="underline" data-field="no">${app.id || ''}</span>
+                  <span>Rank</span>
+                  <span class="underline" data-field="rank">${app.rank || ''}</span>
+                  <span>Name</span>
+                  <span class="underline" data-field="name">${app.name || ''}</span>
+                </div>
+                
+                <div class="form-row">
+                  <span>Sec</span>
+                  <span class="underline" data-field="section">${app.section || ''}</span>
+                  <span>here by request for</span>
+                  <span class="underline">
+                    <span class="leave-type selected">${app.type}</span> leave
+                  </span>
+                </div>
+                
+                <div class="form-row">
+                  <span>for</span>
+                  <span class="underline" data-field="days">${app.daysRequested || ''}</span>
+                  <span>days from</span>
+                  <span class="underline" data-field="date">${app.fromDate || ''}</span>
+                  <span>to</span>
+                  <span class="underline" data-field="date">${app.toDate || ''}</span>
+                </div>
+                
+                <div class="form-row">
+                  <span>Reason</span>
+                  <span class="underline" data-field="reason" style="flex: 2">${app.reason || ''}</span>
+                </div>
+                
+                <div class="form-row">
+                  <span>Address on leave:</span>
+                  <span class="underline" data-field="address" style="flex: 2">${app.address || ''}</span>
+                </div>
+
+                <div class="part-2">
+                  <h3>PART II</h3>
+                  <div class="recommendation-row">
+                    <span class="recommend-option selected">${app.recommendation}</span>
+                  </div>
+                  
+                  <div class="signature-row">
+                    <div class="signature-left">
+                      <span>Dated:</span>
+                      <span class="underline" data-field="date">${app.recommendationDate || 'Pending'}</span>
+                    </div>
+                    <div class="signature-right">
+                      <div class="signature-box">${app.sectionOfficerSignature || ''}</div>
+                      <div class="signature-line">(Signature of section officer)</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="part-2">
+                  <h3>PART III</h3>
+                  <div class="approval-row">
+                    <span class="approval-status">${app.status}</span>
+                  </div>
+
+                  <div class="signature-row">
+                    <div class="signature-left">
+                      <span>Dated:</span>
+                      <span class="underline" data-field="date">${app.approvalDate || 'Pending'}</span>
+                    </div>
+                    <div class="signature-right">
+                      <div class="signature-box">${app.estOfficerSignature || ''}</div>
+                      <div class="signature-line">(Signature of est officer(Civ))</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </body>
         </html>
-      `);
+      `;
       
+      iframe.contentDocument.write(printContent);
       iframe.contentDocument.close();
 
       // Print and remove iframe
@@ -360,7 +491,7 @@ const LeaveManagement = () => {
           <div className="application-header">
             <h3>Leave Application Form</h3>
             <button 
-              className="back-button" 
+              className="back-button2" 
               onClick={handleBack}
               disabled={isLoading}
             >
@@ -423,14 +554,14 @@ const LeaveManagement = () => {
                     {selectedEmployee.status === "Pending" && (
                       <>
                         <button 
-                          className="submit-button"
+                          className="submit-button2"
                           onClick={() => handleDecision(selectedEmployee.id, "Approved")}
                           disabled={isLoading}
                         >
                           Approve
                         </button>
                         <button 
-                          className="update-button"
+                          className="update-button2"
                           onClick={() => handleDecision(selectedEmployee.id, "Rejected")}
                           disabled={isLoading}
                         >
@@ -439,7 +570,7 @@ const LeaveManagement = () => {
                       </>
                     )}
                     <button 
-                      className="print-button"
+                      className="print-button2"
                       onClick={() => handlePrint(selectedEmployee)}
                       disabled={isLoading}
                     >
@@ -531,6 +662,10 @@ LeaveManagement.propTypes = {
       address: PropTypes.string.isRequired,
       recommendation: PropTypes.string.isRequired,
       sectionOfficer: PropTypes.string.isRequired,
+      sectionOfficerSignature: PropTypes.string,
+      recommendationDate: PropTypes.string,
+      estOfficerSignature: PropTypes.string,
+      approvalDate: PropTypes.string,
       history: PropTypes.arrayOf(
         PropTypes.shape({
           fromDate: PropTypes.string.isRequired,

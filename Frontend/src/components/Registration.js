@@ -297,11 +297,11 @@ const Registration = () => {
         }
     };
 
-    const handleUpdate = () => {
-        console.log('Updating Form Data:', formData);
-        setNotificationMessage('Form Updated Successfully!');
-        setTimeout(() => setNotificationMessage(''), 2000); // Hide after 3 seconds
-    };
+    // const handleUpdate = () => {
+    //     console.log('Updating Form Data:', formData);
+    //     setNotificationMessage('Form Updated Successfully!');
+    //     setTimeout(() => setNotificationMessage(''), 2000); // Hide after 3 seconds
+    // };
 
     const handleretir = (e) => {
         const { name, value } = e.target;
@@ -413,36 +413,39 @@ const Registration = () => {
                             <label>Faculty</label>
                             <select name="faculty" value={formData.faculty} onChange={handleChange} required>
                             <option value="">Select Faculty</option>
-                            <option value="budget_cell">Budget Cell</option>
-                            <option value="fae">FAE</option>
-                            <option value="hq_trg_wng">HQ Trg Wng</option>
-                            <option value="hq_coy">HQ Coy</option>
-                            <option value="mts">MTS</option>
-                            <option value="sdd">SDD</option>
-                            <option value="femt">FEMT</option>
-                            <option value="col_adm_sectt">Col Adm Sectt</option>
-                            <option value="feme">FEME</option>
-                            <option value="jco_mess">JCO Mess</option>
-                            <option value="offr_mess">Offr Mess</option>
-                            <option value="ctw">CTW</option>
-                            <option value="mag_5">Mag 5</option>
-                            <option value="emesa">EMESA</option>
-                            <option value="fde">FDE</option>
-                            <option value="comdt_sectt">Comdt Sectt</option>
-                            <option value="sm_br">SM Br</option>
-                            <option value="fel">FEL</option>
-                            <option value="a_coy">A Coy</option>
-                            <option value="fin_sec">Fin Sec</option>
-                            <option value="est_civ_sec">Est Civ Sec</option>
-                            <option value="adjt_sec">Adjt Sec</option>
-                            <option value="e_coy">E Coy</option>
-                            <option value="mto">MTO</option>
-                            <option value="qm_sec">QM Sec</option>
-                            <option value="qm_fire_stn">QM Fire Stn</option>
-                            <option value="mceme_lby">MCEME Lby</option>
-                            <option value="aa&qmg">AA&QMG</option>
-                            <option value="est_o_civ_sec">Est (O) Civ Sec</option>
-                            <option value="bso">BSO</option>
+                            <option value="Budget Cell">HQ Adm Wg-Budget Cell</option>
+              <option value="FAE">FAE</option>
+              <option value="HQ Trg Wing">HQ Trg Wing</option>
+              <option value="HQ Coy">HQ Adm Wg</option>
+              <option value="HQ Coy">HQ Adm Wg-HQ Coy</option>
+              <option value="MTS">HQ Trg Wg-MTS</option>
+              <option value="SDD">SDD</option>
+              <option value="FEMT">FEMT</option>
+              <option value="Col Adm Sectt">HQ Adm Wg-Col Adm Sectt</option>
+              <option value="FEME">FEME</option>
+              <option value="JCO Mess">FEME-JCO Mess</option>
+              <option value="Offr Mess">FEME-Offr Mess</option>
+              <option value="CTW">CTW</option>
+              <option value="Mag 5">Mag 5</option>
+              <option value="EMESA">HQ Adm Wg-EMESA</option>
+              <option value="FDE">FDE</option>
+              <option value="Comdt Sectt">HQ Trg Wg-Comdt Sectt</option>
+              <option value="SM Br">HQ Adm Wg-SM Br</option>
+              <option value="FEL">FEL</option>
+              <option value="A Coy">FEME-A Coy</option>
+              <option value="Fin Sec">HQ Adm Wg-Fin Sec</option>
+              <option value="Est Civ Sec">HQ Adm Wg-Est Civ Sec</option>
+              <option value="Adjt Sec">HQ Adm Wg-Adjt Sec</option>
+              <option value="E Coy">FAE- 'E' Coy</option>
+              <option value="MTO">HQ Adm Wg-MTO</option>
+              <option value="QM Sec">HQ Adm Wg-QM Sec</option>
+              <option value="QM Fire Stn">HQ Adm Wg-QM Fire Stn</option>
+              <option value="MCEME Liby">HQ Trg Wg-MCEME Liby</option>
+              <option value="AA&QMG">HQ Adm Wg-AA&QMG</option>
+              <option value="Est (O) Civ Sec">HQ Adm Wg-Est(O)Civ Sec</option>
+              <option value="BSO">HQ Trg Wg-BSO</option>
+              <option value="Ccoy"> FEL-'C' Coy</option>
+              <option value="Bcoy">FEL-'B' Coy</option>
                             </select>
                         </div>
                         <div className="form-group">
@@ -983,7 +986,7 @@ const Registration = () => {
 
                     <div className="form-actions">
                         <button type="submit" className="submit-button">Submit</button>
-                        <button type="button" className="update-button" onClick={handleUpdate}>Update</button>
+                        {/* <button type="button" className="update-button" onClick={handleUpdate}>Update</button> */}
                     </div>
                 </form>
             </div>

@@ -4,6 +4,8 @@ import Attendance from './attendance';
 import Registration from './Registration';
 import Leave from './LeaveManagement';
 import Header from './Header';
+import ViewRegistration from './ViewRegistration';
+import { FaPrint} from "react-icons/fa";
 import './Fetch.css';
 
 function FetchDetails() {
@@ -15,6 +17,7 @@ function FetchDetails() {
   const [serviceCriteriaFilter, setServiceCriteriaFilter] = useState('');
   const [industrialFilter, setIndustrialFilter] = useState('');
   const [activePage, setActivePage] = useState('fetchDetails');
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   // Function to calculate years between two dates
   const calculateYears = (startDate, endDate) => {
@@ -120,6 +123,20 @@ function FetchDetails() {
   // Add console log to debug
   console.log('Filtered Data:', filteredData);
 
+  if (selectedEmployee) {
+    return <ViewRegistration data={selectedEmployee} onBack={() => setSelectedEmployee(null)} />;
+  }
+
+  const resetFilters = () => {
+    setSearchTerm('');
+    setTradeFilter('');
+    setFacWingFilter('');
+    setCasteFilter('');
+    setPayLevelFilter('');
+    setServiceCriteriaFilter('');
+    setIndustrialFilter('');
+  };
+
   return (
     <div className="fetch-details-container">
       {/* <div className="header no-print">
@@ -129,10 +146,11 @@ function FetchDetails() {
       <Header />
 
       <div className="dashboard-menu no-print">
+        <button onClick={() => setActivePage('registration')}>Registration</button>
         <button onClick={() => setActivePage('fetchDetails')}>Fetch Details</button>
         <button onClick={() => setActivePage('attendance')}>Attendance</button>
         <button onClick={() => setActivePage('leave')}>Leave</button>
-        <button onClick={() => setActivePage('registration')}>Registration</button>
+        
       </div>
 
       {activePage === 'fetchDetails' && (
@@ -150,36 +168,39 @@ function FetchDetails() {
               className="filter-select"
             >
               <option value="">All Fac/Wings</option>
-              <option value="Budget Cell">Budget Cell</option>
+              <option value="Budget Cell">HQ Adm Wg-Budget Cell</option>
               <option value="FAE">FAE</option>
+              <option value="HQ Coy">HQ Adm Wg</option>
               <option value="HQ Trg Wing">HQ Trg Wing</option>
-              <option value="HQ Coy">HQ Coy</option>
-              <option value="MTS">MTS</option>
+              <option value="HQ Coy">HQ Adm Wg-HQ Coy</option>
+              <option value="MTS">HQ Trg Wg-MTS</option>
               <option value="SDD">SDD</option>
               <option value="FEMT">FEMT</option>
-              <option value="Col Adm Sectt">Col Adm Sectt</option>
+              <option value="Col Adm Sectt">HQ Adm Wg-Col Adm Sectt</option>
               <option value="FEME">FEME</option>
-              <option value="JCO Mess">JCO Mess</option>
-              <option value="Offr Mess">Offr Mess</option>
+              <option value="JCO Mess">FEME-JCO Mess</option>
+              <option value="Offr Mess">FEME-Offr Mess</option>
               <option value="CTW">CTW</option>
               <option value="Mag 5">Mag 5</option>
-              <option value="EMESA">EMESA</option>
+              <option value="EMESA">HQ Adm Wg-EMESA</option>
               <option value="FDE">FDE</option>
-              <option value="Comdt Sectt">Comdt Sectt</option>
-              <option value="SM Br">SM Br</option>
+              <option value="Comdt Sectt">HQ Trg Wg-Comdt Sectt</option>
+              <option value="SM Br">HQ Adm Wg-SM Br</option>
               <option value="FEL">FEL</option>
-              <option value="A Coy">A Coy</option>
-              <option value="Fin Sec">Fin Sec</option>
-              <option value="Est Civ Sec">Est Civ Sec</option>
-              <option value="Adjt Sec">Adjt Sec</option>
-              <option value="E Coy">E Coy</option>
-              <option value="MTO">MTO</option>
-              <option value="QM Sec">QM Sec</option>
-              <option value="QM Fire Stn">QM Fire Stn</option>
-              <option value="MCEME Liby">MCEME Liby</option>
-              <option value="AA&QMG">AA&QMG</option>
-              <option value="Est (O) Civ Sec">Est (O) Civ Sec</option>
-              <option value="BSO">BSO</option>
+              <option value="A Coy">FEME-A Coy</option>
+              <option value="Fin Sec">HQ Adm Wg-Fin Sec</option>
+              <option value="Est Civ Sec">HQ Adm Wg-Est Civ Sec</option>
+              <option value="Adjt Sec">HQ Adm Wg-Adjt Sec</option>
+              <option value="E Coy">FAE- 'E' Coy</option>
+              <option value="MTO">HQ Adm Wg-MTO</option>
+              <option value="QM Sec">HQ Adm Wg-QM Sec</option>
+              <option value="QM Fire Stn">HQ Adm Wg-QM Fire Stn</option>
+              <option value="MCEME Liby">HQ Trg Wg-MCEME Liby</option>
+              <option value="AA&QMG">HQ Adm Wg-AA&QMG</option>
+              <option value="Est (O) Civ Sec">HQ Adm Wg-Est(O)Civ Sec</option>
+              <option value="BSO">HQ Trg Wg-BSO</option>
+              <option value="Ccoy"> FEL-'C' Coy</option>
+              <option value="Bcoy">FEL-'B' Coy</option>
             </select>
             <select
               value={tradeFilter}
@@ -278,12 +299,16 @@ function FetchDetails() {
               <option value="Industrial">Industrial</option>
               <option value="Non-Industrial">Non-Industrial</option>
             </select>
+
+            <button className="reset" onClick={resetFilters} style={{ marginLeft: 'auto' }}>
+              Reset
+            </button>
           </div>
           <div className="table-section">
             <div className="table-head">
               <h2>Fetch Details</h2>
-              <button onClick={handlePrint} className="print-button no-print">
-                <i className="fas fa-print"></i> Print
+              <button onClick={handlePrint} className="print-button1 no-print">
+                 <FaPrint/>Print
               </button>
             </div>
             <div className="table-wrapper">
@@ -313,7 +338,12 @@ function FetchDetails() {
                         <td>{row.armyNumber}</td>
                         <td>{row.facWing}</td>
                         <td>{row.trade}</td>
-                        <td>{row.name}</td>
+                        <td
+                          style={{ cursor: 'pointer', color: '#0066cc' }}
+                          onClick={() => setSelectedEmployee(row)}
+                        >
+                          {row.name}
+                        </td>
                         <td>{row.gpfPranNo}</td>
                         <td>{row.caste}</td>
                         <td>{formatDate(row.dob)}</td>

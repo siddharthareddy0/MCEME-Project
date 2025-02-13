@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 .header {
     height: 100px;
-    margin: 2px;
+    margin: 0x;
     display: flex;
     gap: 50px;
     justify-content: center;
@@ -9,8 +9,8 @@
     background-color: #80C4E9;
     padding: 10px 10px;
     color: #173B45;
-    border-radius: 10px;
-    margin-top: 10px;
+    /* border-radius: 10px; */
+    margin-top: 0px;
     margin-bottom: 10px;
   }
   .header div{

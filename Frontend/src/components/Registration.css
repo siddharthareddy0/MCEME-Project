@@ -227,9 +227,8 @@
     margin-top: 2rem;
 }
 
-.submit-button,
-.update-button {
-    flex: 1;
+.submit-button {
+    /* flex: 1; */
     padding: 1rem 2rem;
     border-radius: 8px;
     cursor: pointer;
@@ -240,19 +239,13 @@
 }
 
 .submit-button {
-    background-color: #3498db;
+    background-color: #173B45;
     color: white;
     box-shadow: 0 2px 4px rgba(52, 152, 219, 0.2);
 }
 
-.update-button {
-    background-color: #f39c12;
-    color: white;
-    box-shadow: 0 2px 4px rgba(243, 156, 18, 0.2);
-}
 
-.submit-button:hover,
-.update-button:hover {
+.submit-button:hover {
     transform: translateY(-1px);
 }
 
@@ -261,10 +254,6 @@
     box-shadow: 0 4px 6px rgba(52, 152, 219, 0.3);
 }
 
-.update-button:hover {
-    background-color: #d68910;
-    box-shadow: 0 4px 6px rgba(243, 156, 18, 0.3);
-}
 
 .remarks-row {
     margin-top: 1rem;
