@@ -186,18 +186,57 @@ const LeaveManagement = () => {
     }
   }, []);
 
+  const getEstOfficerStamp = (status) => {
+    if (status === 'Approved') {
+      return `
+        <div style="
+          border: 2px solid #173B45;
+          border-radius: 50%;
+          padding: 5px;
+          width: 60px;
+          height: 60px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto;
+          font-weight: bold;
+          color: #173B45;
+          text-align: center;
+          font-size: 8px;
+        ">
+          APPROVED<br>
+          Est Officer<br>
+          MCEME
+        </div>
+      `;
+    } else if (status === 'Rejected') {
+      return `
+        <div style="
+          border: 2px solid #dc3545;
+          border-radius: 50%;
+          padding: 5px;
+          width: 60px;
+          height: 60px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto;
+          font-weight: bold;
+          color: #dc3545;
+          text-align: center;
+          font-size: 8px;
+        ">
+          REJECTED<br>
+          Est Officer<br>
+          MCEME
+        </div>
+      `;
+    }
+    return '';
+  };
+
   const handlePrint = useCallback((app) => {
     try {
-      if (!app) {
-        throw new Error("Invalid application data for printing");
-      }
-
-      // Create a hidden iframe for printing
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-      
-      // Write content to iframe
       const printContent = `
         <!DOCTYPE html>
         <html>
@@ -221,39 +260,30 @@ const LeaveManagement = () => {
               .print-content {
                 text-align: left;
                 margin: 0 auto;
-                padding: 30px;
+                padding: 20px;
                 width: 100%;
                 max-width: 900px;
               }
               .print-header {
                 text-align: center;
-                margin-bottom: 10px;
-                padding: 20px 0;
+                margin-bottom: 20px;
               }
               .print-header h2 {
-                margin: 10px 0;
-                font-size: 20px;
+                font-size: 18px;
                 font-weight: bold;
-                letter-spacing: 1px;
-                text-decoration: underline;
-                text-underline-offset: 5px;
-              }
-              .print-form {
-                page-break-inside: avoid;
-                width: 100%;
+                margin: 10px 0;
+                text-transform: uppercase;
               }
               .form-row {
-                margin: 25px 0;
+                margin: 15px 0;
                 display: flex;
                 align-items: center;
-                width: 100%;
-                justify-content: flex-start;
-                flex-wrap: nowrap;
               }
               .form-row span:not(.underline) {
                 white-space: nowrap;
                 padding-right: 10px;
-                font-size: 16px;
+                font-size: 14px;
+                font-weight: 500;
               }
               .underline {
                 border-bottom: 1px solid black;
@@ -261,153 +291,126 @@ const LeaveManagement = () => {
                 flex: 1;
                 min-width: 100px;
                 margin: 0 5px;
-                font-size: 16px;
-              }
-              .form-row-group {
-                display: flex;
-                align-items: center;
-                flex: 1;
+                font-size: 14px;
               }
               .signature-row {
                 display: flex;
                 justify-content: space-between;
                 width: 100%;
-                margin-top: 100px;
+                margin-top: 25px;
                 align-items: flex-start;
               }
-              .signature-left {
+              .signature-box {
+                margin-bottom: 10px;
                 display: flex;
+                justify-content: center;
                 align-items: center;
-                gap: 10px;
+                min-height: 60px;
               }
-              .signature-right {
+              .signature-line {
+                font-size: 12px;
                 text-align: center;
-                min-width: 250px;
+                margin-top: 5px;
               }
-              .signature-box{
-                  margin-bottom: 20px;}
               .part-2 {
-                margin-top: 40px;
+                margin-top: 20px;
                 text-align: center;
                 page-break-inside: avoid;
-                padding-top: 20px;
               }
               .part-2 h3 {
-                font-size: 18px;
+                font-size: 16px;
                 font-weight: bold;
                 text-decoration: underline;
-                text-underline-offset: 5px;
-                margin: 15px 0;
+                margin: 8px 0;
                 text-transform: uppercase;
               }
-              .recommendation-row {
-                margin: 20px 0;
-                text-align: center;
-              }
-              .recommend-option {
-                font-weight: bold;
-                text-decoration: underline;
-                padding: 5px 20px;
-              }
+              .recommendation-row,
               .approval-row {
-                margin: 20px 0;
-                text-align: center;
-              }
-              .approval-status {
-                font-weight: bold;
-                padding: 5px 20px;
-                text-decoration: underline;
-              }
-              @media print {
-                html, body {
-                  height: auto;
-                }
-                .print-content {
-                  height: auto;
-                }
-                .print-form {
-                  page-break-after: avoid;
-                }
+                margin: 10px 0;
+                font-weight: 500;
               }
             </style>
           </head>
           <body>
             <div class="print-content">
               <div class="print-header">
+                <h2>MILITARY COLLEGE OF EME</h2>
                 <h2>LEAVE APPLICATION</h2>
-                <h2>INDUSTRIAL AND NON INDUSTRIAL PERSONNEL</h2>
               </div>
               
               <div class="print-form">
                 <div class="form-row">
-                  <span>No</span>
-                  <span class="underline" data-field="no">${app.id || ''}</span>
-                  <span>Rank</span>
-                  <span class="underline" data-field="rank">${app.rank || ''}</span>
-                  <span>Name</span>
-                  <span class="underline" data-field="name">${app.name || ''}</span>
+                  <span>PERS NO:</span>
+                  <span class="underline">${app.id || ''}</span>
+                  <span>Name:</span>
+                  <span class="underline">${app.name || ''}</span>
                 </div>
                 
                 <div class="form-row">
-                  <span>Sec</span>
-                  <span class="underline" data-field="section">${app.section || ''}</span>
-                  <span>here by request for</span>
-                  <span class="underline">
-                    <span class="leave-type selected">${app.type}</span> leave
-                  </span>
+                  <span>Rank:</span>
+                  <span class="underline">${app.rank || ''}</span>
+                  <span>Section:</span>
+                  <span class="underline">${app.section || ''}</span>
                 </div>
                 
                 <div class="form-row">
-                  <span>for</span>
-                  <span class="underline" data-field="days">${app.daysRequested || ''}</span>
-                  <span>days from</span>
-                  <span class="underline" data-field="date">${app.fromDate || ''}</span>
-                  <span>to</span>
-                  <span class="underline" data-field="date">${app.toDate || ''}</span>
+                  <span>Type of Leave:</span>
+                  <span class="underline">${app.type || ''}</span>
+                  <span>Days Requested:</span>
+                  <span class="underline">${app.daysRequested || ''}</span>
                 </div>
                 
                 <div class="form-row">
-                  <span>Reason</span>
-                  <span class="underline" data-field="reason" style="flex: 2">${app.reason || ''}</span>
+                  <span>From Date:</span>
+                  <span class="underline">${app.fromDate || ''}</span>
+                  <span>To Date:</span>
+                  <span class="underline">${app.toDate || ''}</span>
                 </div>
                 
                 <div class="form-row">
-                  <span>Address on leave:</span>
-                  <span class="underline" data-field="address" style="flex: 2">${app.address || ''}</span>
+                  <span>Reason:</span>
+                  <span class="underline" style="flex: 2">${app.reason || ''}</span>
+                </div>
+                
+                <div class="form-row">
+                  <span>Address on Leave:</span>
+                  <span class="underline" style="flex: 2">${app.address || ''}</span>
                 </div>
 
                 <div class="part-2">
-                  <h3>PART II</h3>
+                  <h3>PART II - RECOMMENDATION</h3>
                   <div class="recommendation-row">
-                    <span class="recommend-option selected">${app.recommendation}</span>
+                    ${app.recommendation || 'Pending'}
                   </div>
                   
                   <div class="signature-row">
                     <div class="signature-left">
-                      <span>Dated:</span>
-                      <span class="underline" data-field="date">${app.recommendationDate || 'Pending'}</span>
+                      <span>Date: </span>
+                      <span class="underline">${app.recommendationDate || ''}</span>
                     </div>
                     <div class="signature-right">
                       <div class="signature-box">${app.sectionOfficerSignature || ''}</div>
-                      <div class="signature-line">(Signature of section officer)</div>
+                      <div class="signature-line">(Section Officer)</div>
                     </div>
                   </div>
                 </div>
 
                 <div class="part-2">
-                  <h3>PART III</h3>
+                  <h3>PART III - APPROVAL</h3>
                   <div class="approval-row">
-                    <span class="approval-status">${app.status}</span>
+                    ${app.status || 'Pending'}
                   </div>
 
                   <div class="signature-row">
                     <div class="signature-left">
-                      <span>Dated:</span>
-                      <span class="underline" data-field="date">${app.approvalDate || 'Pending'}</span>
+                      <span>Date: </span>
+                      <span class="underline">${app.approvalDate || ''}</span>
                     </div>
                     <div class="signature-right">
-                      <div class="signature-box">${app.estOfficerSignature || ''}</div>
-                      <div class="signature-line">(Signature of est officer(Civ))</div>
+                      <div class="signature-box">
+                        ${getEstOfficerStamp(app.status)}
+                      </div>
+                      <div class="signature-line">(Est Officer)</div>
                     </div>
                   </div>
                 </div>
@@ -417,10 +420,13 @@ const LeaveManagement = () => {
         </html>
       `;
       
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+      
       iframe.contentDocument.write(printContent);
       iframe.contentDocument.close();
 
-      // Print and remove iframe
       iframe.contentWindow.onafterprint = () => {
         document.body.removeChild(iframe);
       };
@@ -428,7 +434,7 @@ const LeaveManagement = () => {
       iframe.contentWindow.print();
 
     } catch (err) {
-      setError(`Failed to print: ${err.message}`);
+      console.error(`Failed to print: ${err.message}`);
     }
   }, []);
 
@@ -491,7 +497,7 @@ const LeaveManagement = () => {
           <div className="application-header">
             <h3>Leave Application Form</h3>
             <button 
-              className="back-button2" 
+              className="back-button" 
               onClick={handleBack}
               disabled={isLoading}
             >
@@ -554,14 +560,14 @@ const LeaveManagement = () => {
                     {selectedEmployee.status === "Pending" && (
                       <>
                         <button 
-                          className="submit-button2"
+                          className="submit-button"
                           onClick={() => handleDecision(selectedEmployee.id, "Approved")}
                           disabled={isLoading}
                         >
                           Approve
                         </button>
                         <button 
-                          className="update-button2"
+                          className="update-button"
                           onClick={() => handleDecision(selectedEmployee.id, "Rejected")}
                           disabled={isLoading}
                         >
@@ -570,7 +576,7 @@ const LeaveManagement = () => {
                       </>
                     )}
                     <button 
-                      className="print-button2"
+                      className="print-button"
                       onClick={() => handlePrint(selectedEmployee)}
                       disabled={isLoading}
                     >

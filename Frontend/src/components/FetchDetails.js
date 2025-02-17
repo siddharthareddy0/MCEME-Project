@@ -6,6 +6,7 @@ import Leave from './LeaveManagement';
 import Header from './Header';
 import ViewRegistration from './ViewRegistration';
 import { FaPrint} from "react-icons/fa";
+import LeaveRecord from './LeaveRecord';
 import './Fetch.css';
 
 function FetchDetails() {
@@ -146,11 +147,25 @@ function FetchDetails() {
       <Header />
 
       <div className="dashboard-menu no-print">
+        <div className="menu-logo">
+          <img src="/oip.jpg" alt="Logo" />
+        </div>
         <button onClick={() => setActivePage('registration')}>Registration</button>
         <button onClick={() => setActivePage('fetchDetails')}>Fetch Details</button>
         <button onClick={() => setActivePage('attendance')}>Attendance</button>
-        <button onClick={() => setActivePage('leave')}>Leave</button>
-        
+        <div className="dropdown">
+          <button onClick={() => {}}>Leave</button>
+          <div className="dropdown-content">
+            <button onClick={() => setActivePage('leaveManagement')}>Leave Management</button>
+            <button onClick={() => setActivePage('leaveRecord')}>Leave Record</button>
+          </div>
+        </div>
+        <button className="logout-btn" onClick={() => {
+            localStorage.removeItem('token');
+            window.location.href = '/';
+        }}>
+            Logout
+        </button>
       </div>
 
       {activePage === 'fetchDetails' && (
@@ -366,7 +381,8 @@ function FetchDetails() {
         </>
       )}
       {activePage === 'attendance' && <Attendance />}
-      {activePage === 'leave' && <Leave/>}
+      {activePage === 'leaveManagement' && <Leave/>}
+      {activePage === 'leaveRecord' && <LeaveRecord/>}
       {activePage === 'registration' && <Registration />}
     </div>
   );

@@ -111,6 +111,9 @@ function UserFetchDetails({ userFaculty }) {  // userFaculty will be passed from
       <Header />
 
       <div className="dashboard-menu no-print">
+        <div className="menu-logo">
+          <img src="/oip.jpg" alt="Logo" />
+        </div>
         <button onClick={() => setActivePage('fetchDetails')}>Fetch Details</button>
         <button onClick={() => setActivePage('attendance')}>Attendance</button>
         <div className="leave-dropdown-container">
@@ -135,6 +138,12 @@ function UserFetchDetails({ userFaculty }) {  // userFaculty will be passed from
             </div>
           )}
         </div>
+        <button className="logout-btn" onClick={() => {
+          localStorage.removeItem('token');
+          window.location.href = '/';
+        }}>
+          Logout
+        </button>
       </div>
 
       {activePage === 'fetchDetails' && (
@@ -247,7 +256,7 @@ function UserFetchDetails({ userFaculty }) {  // userFaculty will be passed from
           <div className="table-section">
             <div className="table-head">
               <h2>Fetch Details - {userFaculty}</h2>
-              <button onClick={handlePrint} className="print-button no-print">
+              <button onClick={handlePrint} className="print-button1 no-print">
                 <i className="fas fa-print"></i> Print
               </button>
             </div>

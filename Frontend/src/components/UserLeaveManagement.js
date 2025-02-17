@@ -9,104 +9,103 @@ const LeaveHistory = ({ history, employeeNo }) => {
     ? history.filter(entry => entry.type === selectedType)
     : history;
 
-  const handlePrint = () => {
-    const style = `
-      <style>
-        @media print {
-          body * {
-            visibility: hidden;
-          }
-          #printSection, #printSection * {
-            visibility: visible;
-          }
-          #printSection {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-          }
-          table {
-            width: 100%;
-            border-collapse: collapse;
-          }
-          th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: center;
-          }
-          .header {
-            text-align: center;
-            margin-bottom: 20px;
-          }
-          .title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-          }
-          .subtitle {
-            font-size: 20px;
-            margin-bottom: 20px;
-          }
-          .pers-info {
-            margin: 10px 0;
-            font-weight: bold;
-          }
-        }
-      </style>
-    `;
-
-    const printContent = `
-      ${style}
-      <div id="printSection">
-        <div class="header">
-          <div class="title">MILITARY COLLEGE OF EME, SECUNDERABAD</div>
-          <div class="subtitle">${selectedType ?` ${selectedType} LEAVE RECORD `: 'LEAVE RECORD'}</div>
-        </div>
-        <div class="pers-info">PERS NO: ${employeeNo}</div>
-        <table>
-          <thead>
-            <tr>
-              <th>Days Entitled</th>
-              <th>From</th>
-              <th>To</th>
-              <th>Type of Leave</th>
-              <th>No of Days</th>
-              <th>Balance</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${filteredHistory.map(entry => `
-              <tr>
-                <td>${entry.daysEntitled}</td>
-                <td>${entry.fromDate}</td>
-                <td>${entry.toDate}</td>
-                <td>${entry.type}</td>
-                <td>${entry.takenDays}</td>
-                <td>${entry.balance}</td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>
-    `;
-
-    // Create a hidden iframe
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
+    // const handlePrint = () => {
+    //   const style = `
+    //     <style>
+    //       @media print {
+    //         body * {
+    //           visibility: hidden;
+    //         }
+    //         #printSection, #printSection * {
+    //           visibility: visible;
+    //         }
+    //         #printSection {
+    //           position: absolute;
+    //           left: 0;
+    //           top: 0;
+    //           width: 100%;
+    //         }
+    //         table {
+    //           width: 100%;
+    //           border-collapse: collapse;
+    //         }
+    //         th, td {
+    //           border: 1px solid black;
+    //           padding: 8px;
+    //           text-align: center;
+    //         }
+    //         .header {
+    //           text-align: center;
+    //           margin-bottom: 20px;
+    //         }
+    //         .title {
+    //           font-size: 24px;
+    //           font-weight: bold;
+    //           margin-bottom: 10px;
+    //         }
+    //         .subtitle {
+    //           font-size: 20px;
+    //           margin-bottom: 20px;
+    //         }
+    //         .pers-info {
+    //           margin: 10px 0;
+    //           font-weight: bold;
+    //         }
+    //       }
+    //     </style>
+    //   `;
+  
+    //   const printContent = `
+    //     ${style}
+    //     <div id="printSection">
+    //       <div class="header">
+    //         <div class="title">MILITARY COLLEGE OF EME, SECUNDERABAD</div>
+    //         <div class="subtitle">${selectedType ?` ${selectedType} LEAVE RECORD `: 'LEAVE RECORD'}</div>
+    //       </div>
+    //       <div class="pers-info">PERS NO: ${employeeNo}</div>
+    //       <table>
+    //         <thead>
+    //           <tr>
+    //             <th>Days Entitled</th>
+    //             <th>From</th>
+    //             <th>To</th>
+    //             <th>Type of Leave</th>
+    //             <th>No of Days</th>
+    //             <th>Balance</th>
+    //           </tr>
+    //         </thead>
+    //         <tbody>
+    //           ${filteredHistory.map(entry => `
+    //             <tr>
+    //               <td>${entry.daysEntitled}</td>
+    //               <td>${entry.fromDate}</td>
+    //               <td>${entry.toDate}</td>
+    //               <td>${entry.type}</td>
+    //               <td>${entry.takenDays}</td>
+    //               <td>${entry.balance}</td>
+    //             </tr>
+    //           `).join('')}
+    //         </tbody>
+    //       </table>
+    //     </div>
+    //   `;
+    // // Create a hidden iframe
+    // const iframe = document.createElement('iframe');
+    // iframe.style.display = 'none';
+    // document.body.appendChild(iframe);
     
-    // Write the content to iframe and print
-    iframe.contentWindow.document.write(printContent);
-    iframe.contentWindow.document.close();
+    // // Write the content to iframe and print
+    // iframe.contentWindow.document.write(printContent);
+    // iframe.contentWindow.document.close();
     
-    iframe.contentWindow.focus();
-    iframe.contentWindow.print();
+    // iframe.contentWindow.focus();
+    // iframe.contentWindow.print();
     
     // Remove iframe after printing
-    setTimeout(() => {
-      document.body.removeChild(iframe);
-    }, 500);
-  };
+  //   setTimeout(() => {
+  //     document.body.removeChild(iframe);
+  //   }, 500);
+  // };
 
   return (
     <div className="userleave-history-container">
@@ -121,9 +120,9 @@ const LeaveHistory = ({ history, employeeNo }) => {
             <option key={type} value={type}>{type}</option>
           ))}
         </select>
-        <button onClick={handlePrint} className="userleave-print-button">
+        {/* <button onClick={handlePrint} className="userleave-print-button">
           Print
-        </button>
+        </button> */}
       </div>
       
       <div className="userleave-printable-content">
@@ -170,6 +169,55 @@ const LeaveHistory = ({ history, employeeNo }) => {
   );
 };
 
+const getEstOfficerStamp = (status) => {
+  if (status === 'Approved') {
+    return `
+      <div style="
+        border: 2px solid #173B45;
+        border-radius: 50%;
+        padding: 10px;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        font-weight: bold;
+        color: #173B45;
+        text-align: center;
+        font-size: 10px;
+      ">
+        APPROVED<br>
+        Est Officer<br>
+        MCEME
+      </div>
+    `;
+  } else if (status === 'Rejected') {
+    return `
+      <div style="
+        border: 2px solid #dc3545;
+        border-radius: 50%;
+        padding: 10px;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        font-weight: bold;
+        color: #dc3545;
+        text-align: center;
+        font-size: 10px;
+      ">
+        REJECTED<br>
+        Est Officer<br>
+        MCEME
+      </div>
+    `;
+  }
+  return '';
+};
+
 const LeaveStatus = () => {
   const [statusFilter, setStatusFilter] = useState('');
   const [leaveRequests] = useState([
@@ -204,8 +252,223 @@ const LeaveStatus = () => {
     : leaveRequests;
 
   const handlePrint = (request) => {
-    // Implement print functionality for approved/rejected requests
-    window.print();
+    try {
+      if (!request) {
+        throw new Error("Invalid request data for printing");
+      }
+
+      // Create a hidden iframe for printing
+      const iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+      
+      // Write content to iframe
+      const printContent = `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>Leave Application</title>
+            <style>
+              @page {
+                size: A4;
+                margin: 1.5cm;
+              }
+              * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+              }
+              body {
+                font-family: Arial, sans-serif;
+                width: 100%;
+                height: 100%;
+              }
+              .print-content {
+                text-align: left;
+                margin: 0 auto;
+                padding: 30px;
+                width: 100%;
+                max-width: 900px;
+              }
+              .print-header {
+                text-align: center;
+                margin-bottom: 10px;
+                padding: 20px 0;
+              }
+              .print-header h2 {
+                margin: 10px 0;
+                font-size: 20px;
+                font-weight: bold;
+                letter-spacing: 1px;
+                text-decoration: underline;
+                text-underline-offset: 5px;
+              }
+              .print-form {
+                page-break-inside: avoid;
+                width: 100%;
+              }
+              .form-row {
+                margin: 25px 0;
+                display: flex;
+                align-items: center;
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+              }
+              .form-row span:not(.underline) {
+                white-space: nowrap;
+                padding-right: 10px;
+                font-size: 16px;
+              }
+              .underline {
+                border-bottom: 1px solid black;
+                padding: 2px 5px;
+                flex: 1;
+                min-width: 100px;
+                margin: 0 5px;
+                font-size: 16px;
+              }
+              .form-row-group {
+                display: flex;
+                align-items: center;
+                flex: 1;
+              }
+              .signature-row {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                margin-top: 100px;
+                align-items: flex-start;
+              }
+              .signature-left {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+              }
+              .signature-right {
+                text-align: center;
+                min-width: 250px;
+              }
+              .signature-box {
+                margin-bottom: 20px;
+              }
+              .part-2 {
+                margin-top: 40px;
+                text-align: center;
+                page-break-inside: avoid;
+                padding-top: 20px;
+              }
+              .part-2 h3 {
+                font-size: 18px;
+                font-weight: bold;
+                text-decoration: underline;
+                text-underline-offset: 5px;
+                margin: 15px 0;
+                text-transform: uppercase;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="print-content">
+              <div class="print-header">
+                <h2>LEAVE APPLICATION</h2>
+                <h2>INDUSTRIAL AND NON INDUSTRIAL PERSONNEL</h2>
+              </div>
+              
+              <div class="print-form">
+                <div class="form-row">
+                  <span>No</span>
+                  <span class="underline" data-field="no">${request.persNo || ''}</span>
+                  <span>Rank</span>
+                  <span class="underline" data-field="rank">${request.rank || ''}</span>
+                  <span>Name</span>
+                  <span class="underline" data-field="name">${request.name || ''}</span>
+                </div>
+                
+                <div class="form-row">
+                  <span>Sec</span>
+                  <span class="underline" data-field="section">${request.section || ''}</span>
+                  <span>here by request for</span>
+                  <span class="underline">
+                    <span class="leave-type selected">${request.type}</span> leave
+                  </span>
+                </div>
+                
+                <div class="form-row">
+                  <span>for</span>
+                  <span class="underline" data-field="days">${request.daysRequested || ''}</span>
+                  <span>days from</span>
+                  <span class="underline" data-field="date">${request.fromDate || ''}</span>
+                  <span>to</span>
+                  <span class="underline" data-field="date">${request.toDate || ''}</span>
+                </div>
+                
+                <div class="form-row">
+                  <span>Reason</span>
+                  <span class="underline" data-field="reason" style="flex: 2">${request.reason || ''}</span>
+                </div>
+                
+                <div class="form-row">
+                  <span>Address on leave:</span>
+                  <span class="underline" data-field="address" style="flex: 2">${request.address || ''}</span>
+                </div>
+
+                <div class="part-2">
+                  <h3>PART II</h3>
+                  <div class="recommendation-row">
+                    <span class="recommend-option selected">${request.recommendation || ''}</span>
+                  </div>
+                  
+                  <div class="signature-row">
+                    <div class="signature-left">
+                      <span>Dated:</span>
+                      <span class="underline" data-field="date">${request.recommendationDate || 'Pending'}</span>
+                    </div>
+                    <div class="signature-right">
+                      <div class="signature-box">${request.sectionOfficerSignature || ''}</div>
+                      <div class="signature-line">(Signature of section officer)</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="part-2">
+                  <h3>PART III</h3>
+                  <div class="approval-row">
+                    <span class="approval-status">${request.status}</span>
+                  </div>
+
+                  <div class="signature-row">
+                    <div class="signature-left">
+                      <span>Dated:</span>
+                      <span class="underline" data-field="date">${request.approvalDate || 'Pending'}</span>
+                    </div>
+                    <div class="signature-right">
+                      <div class="signature-box">
+                        ${getEstOfficerStamp(request.status)}
+                      </div>
+                      <div class="signature-line">(Signature of est officer(Civ))</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </body>
+        </html>
+      `;
+      
+      iframe.contentDocument.write(printContent);
+      iframe.contentDocument.close();
+
+      // Print and remove iframe
+      iframe.contentWindow.onafterprint = () => {
+        document.body.removeChild(iframe);
+      };
+      
+      iframe.contentWindow.print();
+
+    } catch (err) {
+      console.error(`Failed to print: ${err.message}`);
+    }
   };
 
   return (
@@ -240,30 +503,29 @@ const LeaveStatus = () => {
               <th>Type of Leave</th>
               <th>Status</th>
               {(statusFilter === 'Approved' || statusFilter === 'Rejected' || !statusFilter) && (
-                <th>Action</th>
+                <th>Actions</th>
               )}
             </tr>
           </thead>
           <tbody>
-            {filteredRequests.map((request, index) => (
-              <tr key={index}>
+            {filteredRequests.map((request) => (
+              <tr key={request.persNo}>
                 <td>{request.persNo}</td>
                 <td>{request.name}</td>
                 <td>{request.rank}</td>
                 <td>{request.section}</td>
                 <td>{request.type}</td>
+                {/* <td>{request.status}</td> */}
+
                 <td className={ `status-${request.status.toLowerCase()} `}>
                   {request.status}
                 </td>
-                {(request.status === 'Approved' || request.status === 'Rejected') && (
+                {(statusFilter === 'Approved' || statusFilter === 'Rejected' || !statusFilter) && (
                   <td>
                     <button onClick={() => handlePrint(request)} className="userleave-print-button">
                       Print
                     </button>
                   </td>
-                )}
-                {request.status === 'Pending' && statusFilter !== 'Approved' && statusFilter !== 'Rejected' && (
-                  <td></td>
                 )}
               </tr>
             ))}
@@ -327,8 +589,9 @@ const LeaveApplicationForm = () => {
       [name]: value
     }));
 
-    if (name === 'employeeNo' && value) {
-      setShowTables(true);
+    // Only show tables if employeeNo has a value and is at least 3 characters
+    if (name === 'employeeNo') {
+      setShowTables(value.length >= 3);
     }
   };
 
@@ -474,7 +737,7 @@ const LeaveApplicationForm = () => {
             />
           </div>
 
-          <div className="userleave-form-row">
+          <div className="userleave-form-row full-width">
             <label>Reason for Leave:</label>
             <textarea
               name="reason"
@@ -484,7 +747,7 @@ const LeaveApplicationForm = () => {
             />
           </div>
 
-          <div className="userleave-form-row">
+          <div className="userleave-form-row full-width">
             <label>Address on Leave:</label>
             <textarea
               name="address"
@@ -524,7 +787,7 @@ const LeaveApplicationForm = () => {
             </div>
           )}
 
-          <div className="userleave-form-actions">
+          <div className="userleave-form-actions full-width">
             <button type="submit" className="userleave-submit-button">
               Submit Application
             </button>
@@ -533,7 +796,7 @@ const LeaveApplicationForm = () => {
       </div>
 
       {showTables && (
-        <div className="userleave-tables-section">
+        <div className={`userleave-tables-section ${showTables ? 'show' : ''}`}>
           <LeaveHistory
             history={[
               { fromDate: '2024-01-01', toDate: '2024-01-05', type: 'EL', takenDays: 5, daysEntitled: 10, balance: 5 },

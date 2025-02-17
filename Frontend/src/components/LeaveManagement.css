@@ -43,8 +43,10 @@ body {
 .leave-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   table-layout: fixed;
+  border-radius: 8px;
 }
 
 /* Table Headers & Cells */
@@ -59,44 +61,82 @@ body {
 }
 
 .leave-table th {
-  background-color: #80C4E9;
-  color: black;
+  background: #80C4E9 !important;
+  color: #173B45 !important;
+  padding: 12px !important;
+  text-align: left !important;
+  font-weight: bold !important;
+  /* font-family: 'Arial', sans-serif !important; */
+  font-size: 14px !important;
+  text-transform: uppercase !important;
+  border: 1px solid #e2e8f0 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
+.leave-table td {
+  padding: 12px;
+  border: 1px solid #dee2e6;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.leave-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+/* .leave-table tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+} */
+
+
 
 /* Column width adjustments */
-.leave-table th:nth-child(1),
+.leave-table th:nth-child(1), /* DAYS ENTITLED */
 .leave-table td:nth-child(1) {
-  width: 5%;  /* No. column */
+  width: 15%;
 }
 
-.leave-table th:nth-child(2),
+.leave-table th:nth-child(2), /* FROM */
 .leave-table td:nth-child(2) {
-  width: 20%;  /* Name column */
+  width: 15%;
 }
 
-.leave-table th:nth-child(3),
+.leave-table th:nth-child(3), /* TO */
 .leave-table td:nth-child(3) {
-  width: 15%;  /* Rank column */
+  width: 15%;
 }
 
-.leave-table th:nth-child(4),
+.leave-table th:nth-child(4), /* TYPE OF LEAVE */
 .leave-table td:nth-child(4) {
-  width: 20%;  /* Section column */
+  width: 25%;
 }
 
-.leave-table th:nth-child(5),
+.leave-table th:nth-child(5), /* NO OF DAYS */
 .leave-table td:nth-child(5) {
-  width: 20%;  /* Type of Leave column */
+  width: 15%;
 }
 
-.leave-table th:nth-child(6),
+.leave-table th:nth-child(6), /* BALANCE */
 .leave-table td:nth-child(6) {
-  width: 20%;  /* Status column */
+  width: 15%;
 }
 
 /* Ensure table rows have consistent height */
 .leave-table tr {
   height: 45px;
+}
+
+.leave-table tbody tr:hover {
+  background-color: #A0DEFF;
 }
 
 /* Clickable Name */
@@ -116,18 +156,23 @@ body {
 
 /* Employee Details Page */
 .application-page {
-  padding: 20px;
+  padding: 5px;
+  padding-top: 0px;
 }
 
 .application-header {
   display: flex;
+  font-weight: bold;
+  font-family: 'Playfair Display', serif;
+  color: #173B45;
+  font-size: x-large;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  margin-left: 280px;
+  margin-bottom: 5px;
+  margin-left: 220px;
 }
 
-.back-button2 {
+.back-button {
   width: fit-content;
   padding: 8px 16px;
   background-color: #173B45;
@@ -137,7 +182,7 @@ body {
   cursor: pointer;
 }
 
-.back-button2:hover {
+.back-button:hover {
   background-color: #173B45;
 }
 
@@ -185,9 +230,9 @@ body {
   width: 100%;
 }
 
-.submit-button2,
-.update-button2,
-.print-button2 {
+.submit-button,
+.update-button,
+.print-button {
   min-width: 130px;
   width: 130px;
   height: 35px;
@@ -204,47 +249,48 @@ body {
   align-items: center;
   justify-content: center;
   flex: 0 0 130px;
+  width: fit-content;
 }
 
-.submit-button2 {
+.submit-button {
   background-color: #2ecc71; /* Green */
   color: white;
 }
 
-.update-button2 {
+.update-button {
   background-color: #e74c3c; /* Red */
   color: white;
 }
 
-.print-button2 {
-  background-color: #3498db; /* Blue */
+.print-button {
+  background-color: #173B45; /* Blue */
   color: white;
 }
 
-.submit-button2:hover,
-.update-button2:hover,
-.print-button2:hover {
+.submit-button:hover,
+.update-button:hover,
+.print-button:hover {
   transform: translateY(-1px);
 }
 
-.submit-button2:hover {
+.submit-button:hover {
   background-color: #27ae60; /* Darker green */
   box-shadow: 0 4px 6px rgba(46, 204, 113, 0.3);
 }
 
-.update-button2:hover {
+.update-button:hover {
   background-color: #c0392b; /* Darker red */
   box-shadow: 0 4px 6px rgba(231, 76, 60, 0.3);
 }
 
-.print-button2:hover {
-  background-color: #2980b9; /* Darker blue */
+.print-button:hover {
+  background-color: #173B45; /* Darker blue */
   box-shadow: 0 4px 6px rgba(52, 152, 219, 0.3);
 }
 
-.submit-button2:disabled,
-.update-button2:disabled,
-.print-button2:disabled {
+.submit-button:disabled,
+.update-button:disabled,
+.print-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
@@ -253,8 +299,9 @@ body {
 /* Leave Details Container */
 .leave-history,
 .leave-balance {
+  color: #173B45;
   background-color: #f5f5f5;
-  padding: 20px;
+  padding: 10px;
   border-radius: 8px;
 }
 
@@ -277,7 +324,118 @@ body {
 .leave-history th,
 .leave-balance th {
   background-color: #80C4E9;
-  color: white;
+  color: #173B45;
+}
+.leave-history tbody tr:hover,
+.leave-balance tbody tr:hover
+ {
+  background-color: #A0DEFF;
+}
+
+/* Leave Record Component */
+.leave-record-main-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.leave-record-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.college-name {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.leave-record-title {
+  font-size: 25px;
+  font-family: 'Playfair Display', serif;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.person-info {
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  font-weight: bold;
+}
+
+.info-row span {
+  flex: 1;
+}
+
+.table-container {
+  margin-top: 20px;
+  overflow-x: auto;
+  padding-bottom: 20px;
+}
+
+.leave-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.leave-table th {
+  background-color: #80C4E9;
+  color: #173B45;
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.leave-table td {
+  padding: 12px;
+  border: 1px solid #dee2e6;
+}
+
+  /* .leave-table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+  } */
+
+.print-only {
+  display: none;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block;
+  }
+
+  .leave-record-main-container {
+    padding: 0;
+  }
+
+  .leave-table {
+    border: 1px solid black;
+  }
+
+  .leave-table th,
+  .leave-table td {
+    border: 1px solid black;
+    padding: 8px;
+  }
+
+  .person-info {
+    background: none;
+    border: none;
+    margin: 15px 0;
+  }
 }
 
 /* Print styles */
@@ -534,7 +692,7 @@ body {
 }
 
 .approval-status.pending {
-  color: #856404;
+  color: #ff9800;
   background-color: #fff3cd;
 }
 
@@ -673,4 +831,8 @@ body {
   border-radius: 10px;
   z-index: 1000;
   transition: opacity 0.5s ease;
+}
+.search-input,
+.leave-type-select{
+  margin-right:15px;
 }

@@ -15,15 +15,17 @@
     display: flex;
     gap: 2rem;
     width: 100%;
-    padding-left: 1rem;
+    padding: 0 2rem;
   }
   
   .userleave-form-section {
     flex: 0 0 52%;
     background: white;
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    max-width: 600px;
   }
   
   .userleave-form-section h2 {
@@ -38,22 +40,28 @@
   
   /* Form Fields */
   .userleave-form-row {
-    margin-bottom: 1.8rem;
     position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 1rem;
   }
   
   .userleave-form-row label {
-    display: block;
-    margin-bottom: 0.6rem;
+    min-width: 150px;
     font-weight: 500;
     color: #333;
     font-size: 15px;
+    text-align: right;
+    font-weight: bold;
   }
   
   .userleave-form-row input,
+  .userleave-form-row select,
   .userleave-form-row textarea {
-    width: 100%;
-    padding: 0.9rem;
+    flex: 1;
+    padding: 0.7rem;
     border: 1.5px solid #e0e0e0;
     border-radius: 6px;
     font-size: 15px;
@@ -91,7 +99,7 @@
   
   .userleave-form-row input:focus,
   .userleave-form-row textarea:focus {
-    border-color: #2196f3;
+    border-color: #173B45;
     outline: none;
     box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
   }
@@ -105,17 +113,22 @@
   .userleave-digital-stamp {
     margin-top: 0.8rem;
     padding: 1.2rem;
-    border: 2px dashed #2196f3;
+    border: 2px dashed #173B45;
     border-radius: 6px;
     text-align: center;
-    color: #2196f3;
+    color: #173B45;
     font-weight: 500;
   }
   
   /* Tables Section */
   .userleave-tables-section {
-    flex: 0 0 46%;
+    display: none;
+  }
+  
+  /* Show tables when employee number is entered */
+  .userleave-tables-section.show {
     display: flex;
+    flex: 0 0 46%;
     flex-direction: column;
     gap: 1.5rem;
     margin-top: 2.5rem;
@@ -173,22 +186,22 @@
   
   /* Submit Button */
   .userleave-submit-button {
-    background-color: #4CAF50;
+    background-color: #173B45;
     color: white;
-    padding: 12px 24px;
+    padding: 8px 16px;
     border: none;
     border-radius: 6px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    width: 100%;
-    margin-top: 1rem;
+    width: auto;
+    margin-top: 0.1rem;
     text-align: center;
   }
   
   .userleave-submit-button:hover {
-    background-color: #45a049;
+    background-color: #173B45;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
   
@@ -204,7 +217,7 @@
   
   .userleave-record-table th,
   .userleave-attendance-table th {
-    background-color: #80C4E9;
+    background-color: #173B45;
     color: white;
     font-weight: bold;
     padding: 12px;
@@ -420,4 +433,21 @@
     .userleave-form-row textarea {
       padding: 0.8rem;
     }
+  }
+
+  /* Reset the grid layout */
+  .userleave-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Adjust full-width items */
+  .userleave-form-row.full-width textarea {
+    min-height: 80px;
+  }
+  
+  /* Adjust submit button container */
+  .userleave-form-actions {
+    margin-top: 1.5rem;
+    padding-left: 160px;
   }
