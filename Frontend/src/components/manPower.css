@@ -1,0 +1,135 @@
+.manpower-container {
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.print-button5 {
+  margin: 20px;
+  padding: 10px 20px;
+  height: 50px;
+  width: 150px;
+  background-color: #173B45;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.print-button5:hover {
+  background-color: #173B45;
+}
+
+.tables-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding-bottom: 20px;
+  scroll-snap-type: x mandatory;
+}
+
+.table-wrapper {
+  flex: 0 0 auto;
+  min-width: 500px;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  scroll-snap-align: start;
+}
+
+.table-wrapper h3 {
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background-color: white;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #80C4E9;
+  color: #173B45;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* Print styles */
+@media print {
+  @page {
+    size: A4;
+    margin: 1.5cm;
+  }
+
+  body {
+    background: none;
+  }
+
+  .manpower-container {
+    display: none !important;
+  }
+
+  .print-button5, .navbar {
+    display: none !important;
+  }
+
+  .tables-container {
+    display: block !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .table-wrapper {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 0 20px 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    page-break-inside: avoid !important;
+    min-width: unset !important;
+    background: none !important;
+  }
+
+  /* Force page break after every second table */
+  .table-wrapper:nth-child(2n)::after {
+    content: '';
+    display: block;
+    page-break-after: always;
+    height: 0;
+  }
+
+  table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+    margin: 0 0 20px 0 !important;
+  }
+
+  th, td {
+    border: 1px solid black !important;
+    padding: 4px !important;
+    font-size: 10pt !important;
+  }
+
+  h3 {
+    margin: 0 0 10px 0 !important;
+    font-size: 12pt !important;
+    text-align: center !important;
+  }
+}

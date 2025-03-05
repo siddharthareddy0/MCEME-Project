@@ -60,6 +60,8 @@ function NavBar() {
         )}
       </div>
 
+      <button onClick={() => navigate("/manpower")}>ManPower</button>
+
       {/* Logout Button */}
       <button className="logout-btn" onClick={handleLogout}>
         Logout

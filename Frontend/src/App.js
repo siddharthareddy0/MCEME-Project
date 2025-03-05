@@ -14,7 +14,7 @@ import UpdateDetails from "./components/updateDetails";
 import UserAttendance from "./components/UserAttendance";
 import FacultyAttendance from "./components/FacultyAttendance";
 import LeaveRecord from "./components/LeaveRecord";
-
+import ManPower from "./components/manPower";
 function App() {
   return (
     <div>
@@ -34,6 +34,7 @@ function App() {
         <Route path="/user-leave" element={<UserLeaveManagement />} />
         <Route path="/leaveRecord" element={<LeaveRecord />} />
         <Route path="/leaveManagement" element={<LeaveManagement />} />
+        <Route path="/manpower" element={<ManPower />} />
       </Routes>
     </div>
   );
