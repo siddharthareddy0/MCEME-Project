@@ -1,0 +1,204 @@
+/* Form Container */
+.kindered-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 93%;
+  padding: 0 2rem;
+  position: relative;
+}
+
+.kindered-form-section {
+  flex: 0 0 52%;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  max-width: 600px;
+  position: relative;
+}
+
+.kindered-form-section h2 {
+  color: #333;
+  font-size: 26px;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Form Fields */
+.kindered-form-row {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.kindered-form-row label {
+  min-width: 150px;
+  font-weight: 500;
+  color: #333;
+  font-size: 15px;
+  text-align: right;
+  font-weight: bold;
+}
+
+.kindered-form-row input,
+.kindered-form-row select,
+.kindered-form-row textarea {
+  flex: 1;
+  padding: 0.7rem;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 15px;
+  background-color: #fff;
+}
+
+.kindered-form-row select {
+  width: 100%;
+  height: 40px;
+  padding: 8px 12px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 15px;
+  color: #333;
+  background-color: white;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 32px;
+}
+
+.kindered-form-row select:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+.kindered-form-row select option {
+  padding: 8px;
+  background-color: white;
+  color: #333;
+}
+
+.kindered-form-row input:focus,
+.kindered-form-row textarea:focus {
+  border-color: #173B45;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+/* Notification */
+.notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 25px;
+  border-radius: 4px;
+  font-size: 16px;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    top: -100px;
+    opacity: 0;
+  }
+  to {
+    top: 20px;
+    opacity: 1;
+  }
+}
+
+/* Print Button */
+.print-button-container {
+  position: absolute;
+  right: 10px; /* Adjust this value as needed */
+  top: -5px;
+  z-index: 1;
+}
+
+
+.print-button6 {
+  padding: 8px 12px;
+  background-color: #173B45;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: fit-content;
+  height: 32px;
+}
+
+.print-button:hover {
+  background-color: #122b33;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Submit Button */
+.kindered-submit-button {
+  background-color: #173B45;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: auto;
+  margin-top: 0.1rem;
+  text-align: center;
+}
+
+.kindered-submit-button:hover {
+  background-color: #122b33;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.kindered-form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* Print Styles */
+@media print {
+  .print-button {
+    display: none;
+  }
+  
+  .kindered-form-container {
+    padding: 0;
+  }
+  
+  .kindered-form-section {
+    box-shadow: none;
+    padding: 0;
+  }
+}

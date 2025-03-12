@@ -1,10 +1,14 @@
 .manpower-container {
   padding: 20px;
   background-color: #f5f5f5;
+  margin-left: 60px;
+  margin-right: 60px;
+  /* border-radius: 2px; */
+  /* max-width: 100%; */
 }
 
 .print-button5 {
-  margin: 20px;
+  margin: 0px;
   padding: 10px 20px;
   height: 50px;
   width: 150px;
@@ -25,16 +29,20 @@
   overflow-x: auto;
   gap: 20px;
   padding-bottom: 20px;
+  max-width: fit-content;
+  border-radius: 4px;
   scroll-snap-type: x mandatory;
 }
 
 .table-wrapper {
   flex: 0 0 auto;
   min-width: 500px;
+  margin-left: 30px;
+  margin-right: 30px;
   background: white;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   scroll-snap-align: start;
 }
 
@@ -45,13 +53,14 @@
 }
 
 table {
-  width: 100%;
+  width: 95%;
   border-collapse: collapse;
   margin-bottom: 20px;
   background-color: white;
 }
 
-th, td {
+th,
+td {
   border: 1px solid #ddd;
   padding: 12px;
   text-align: left;
@@ -85,7 +94,8 @@ tr:hover {
     display: none !important;
   }
 
-  .print-button5, .navbar {
+  .print-button5,
+  .navbar {
     display: none !important;
   }
 
@@ -121,7 +131,8 @@ tr:hover {
     margin: 0 0 20px 0 !important;
   }
 
-  th, td {
+  th,
+  td {
     border: 1px solid black !important;
     padding: 4px !important;
     font-size: 10pt !important;

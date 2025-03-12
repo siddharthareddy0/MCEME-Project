@@ -6,6 +6,7 @@ import "./Fetch.css";
 function NavBar() {
 
   const [showLeaveDropdown, setShowLeaveDropdown] = useState(false);
+  const [showPartIIDropdown, setShowPartIIDropdown] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
   const navigate = useNavigate();
 
@@ -55,6 +56,36 @@ function NavBar() {
             </button>
             <button onClick={() => navigate("/leaveRecord")}>
               Leave Record
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Part-II Order Dropdown */}
+      <div
+        className="leave-dropdown-container"
+        onMouseEnter={() => setShowPartIIDropdown(true)}
+        onMouseLeave={() => setShowPartIIDropdown(false)}
+      >
+        <button
+          className={`leave-button ${showPartIIDropdown ? "active" : ""}`}
+          onClick={() => setShowPartIIDropdown(!showPartIIDropdown)}
+        >
+          Part-II Order
+        </button>
+        {showPartIIDropdown && (
+          <div className="leave-dropdown-menu">
+            <button onClick={() => navigate("/kinderedroll")}>
+              Kindered Roll
+            </button>
+            <button onClick={() => navigate("/marital-status")}>
+              Marital Status
+            </button>
+            <button onClick={() => navigate("/retired")}>
+              Retirements
+            </button>
+            <button onClick={() => navigate("/status")}>
+              Status
             </button>
           </div>
         )}

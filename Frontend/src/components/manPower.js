@@ -1,10 +1,39 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import NavBar from './NavBar';
 import './manPower.css';
+import { FaPrint, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
+
+const useTableScroll = () => {
+  const tablesContainerRef = useRef(null);
+
+  const scrollLeft = () => {
+    if (tablesContainerRef.current) {
+      tablesContainerRef.current.scrollBy({
+        left: -tablesContainerRef.current.clientWidth,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  const scrollRight = () => {
+    if (tablesContainerRef.current) {
+      tablesContainerRef.current.scrollBy({
+        left: tablesContainerRef.current.clientWidth,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  return { tablesContainerRef, scrollLeft, scrollRight };
+};
 const ManPower = () => {
+  const { tablesContainerRef, scrollLeft, scrollRight } = useTableScroll();
   const handlePrint = () => {
-    // Create a hidden iframe for printing
+    
+
+   
+        // Create a hidden iframe for printing
     const printFrame = document.createElement('iframe');
     printFrame.style.position = 'fixed';
     printFrame.style.right = '0';
@@ -16,8 +45,6 @@ const ManPower = () => {
 
     // Get all tables
     const tables = document.querySelectorAll('.table-wrapper');
-    
-    // Create print document content
     const printContent = `
       <!DOCTYPE html>
       <html>
@@ -102,12 +129,61 @@ const ManPower = () => {
   };
 
   return (
-    <div className="manpower-container">
+    <div>
       <NavBar />
-      <button className="print-button5" onClick={handlePrint}>Print Tables</button>
-      
-      <div className="tables-container">
-        {/* Table 1: MANPOWER STATE - CIV */}
+    <div className="manpower-container">
+      <button className="print-button5" onClick={handlePrint}>
+        <i className="fas fa-print"></i> <FaPrint/> Print Tables
+      </button>
+      <div className="scroll-buttons">
+        <div 
+          className="arrow-button" 
+          onClick={scrollLeft} 
+          style={{ 
+            position: 'fixed',
+            left: '20px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            width: '50px',
+            height: '50px',
+            backgroundColor: '#173B45',
+            borderRadius: '50%',
+            color: 'white',
+            cursor: 'pointer',
+            zIndex: 1000
+          }}
+        >
+          <FaArrowLeft/> {/* Left Arrow */}
+        </div>
+        <div 
+          className="arrow-button" 
+          onClick={scrollRight} 
+          style={{ 
+            position: 'fixed',
+            right: '20px',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            display: 'flex',
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            width: '50px',
+            height: '50px',
+            backgroundColor: '#173B45',
+            borderRadius: '50%',
+            color: 'white',
+            cursor: 'pointer',
+            zIndex: 1000
+          }}
+        >
+          <FaArrowRight/> {/* Right Arrow */}
+        </div>
+      </div>
+
+      <div className="tables-container" ref={tablesContainerRef}>
+        {/* Your existing table wrappers here */}
         <div className="table-wrapper">
           <h3>MANPOWER STATE : CIV</h3>
           <table>
@@ -165,7 +241,7 @@ const ManPower = () => {
             </tbody>
           </table>
         </div>
-
+       
         {/* Table 2: MANPOWER SUMMARY STATE : CIV DEF EMP */}
         <div className="table-wrapper">
           <h3>MANPOWER SUMMARY STATE : CIV DEF EMP</h3>
@@ -275,7 +351,7 @@ const ManPower = () => {
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
               </tr>
               <tr>
-                <td>CMD</td>
+                <td> CMD</td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
               </tr>
@@ -636,6 +712,7 @@ const ManPower = () => {
         </div>
       </div>
     </div>
+  </div>
   );
 };
 
