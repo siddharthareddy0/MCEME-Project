@@ -7,8 +7,8 @@ const router = express.Router();
 
 router.get("/dept", infoController.getDepartments);
 router.get("/trade", infoController.getTrade);
-router.get("/employees",authMiddleware('admin'), infoController.getEmp);
-router.get("/employeesFac",authMiddleware('user'), infoController.getEmpFac);
+router.get("/employees",authMiddleware(['officer','admin']), infoController.getEmp);
+router.get("/employeesFac",authMiddleware(['user']), infoController.getEmpFac);
 router.get('/employees/:id', getEmployeeById);
 
 

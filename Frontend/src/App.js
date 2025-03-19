@@ -14,7 +14,12 @@ import UpdateDetails from "./components/updateDetails";
 import UserAttendance from "./components/UserAttendance";
 import FacultyAttendance from "./components/FacultyAttendance";
 import LeaveRecord from "./components/LeaveRecord";
-
+import  Officer  from "./components/Officer"; 
+import OfficerFetch from "./components/Officerfetch";
+import ManPower from "./components/manPower";
+import PartIIOrder from "./components/kinderedRoll";
+import MaritalStatus from "./components/maritalStatus";
+import Retirements from "./components/Retirement";
 function App() {
   return (
     <div>
@@ -34,6 +39,12 @@ function App() {
         <Route path="/user-leave" element={<UserLeaveManagement />} />
         <Route path="/leaveRecord" element={<LeaveRecord />} />
         <Route path="/leaveManagement" element={<LeaveManagement />} />
+        <Route path="/officer" element={<Officer />} />
+        <Route path="/officerfetch" element={<OfficerFetch />} />
+        <Route path="/manpower" element={<ManPower />} />
+        <Route path="/kinderedroll" element={<PartIIOrder />} />
+        <Route path="/marital-status" element={<MaritalStatus />} />
+        <Route path="/retired" element={<Retirements />} />
       </Routes>
     </div>
   );

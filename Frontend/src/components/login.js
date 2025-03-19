@@ -46,10 +46,13 @@ function App() {
 
       if (role === "admin") {
         setNotificationMessage('Login Successful!');
-        setTimeout(() => navigate("/fetch"), 900); // ✅ Delayed navigation
+        setTimeout(() => navigate("/fetch"), 900); 
       } else if (role === "user") {
         setNotificationMessage('Login Successful!');
-        setTimeout(() => navigate("/userFetch"), 900); // ✅ Delayed navigation
+        setTimeout(() => navigate("/userFetch"), 900); 
+      } else if (role === "officer") {
+        setNotificationMessage('Login Successful!');
+        setTimeout(() => navigate("/officer"), 900);
       } else {
         setError("Invalid role or unauthorized access.");
         return;

@@ -121,7 +121,7 @@ html, body {
   margin: 0;
 }
 
-.table-wrapper {
+.table-wrapper-fetch {
   width: 100%;
   overflow-x: auto;
   margin-top: 10px;

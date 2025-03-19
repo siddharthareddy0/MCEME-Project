@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const authMiddleware = (requiredRole) => {
+const authMiddleware = (requiredRoles) => {
   return (req, res, next) => {
     const token = req.cookies.jwt; // Read the token from cookies
     if (!token) {
@@ -11,8 +11,8 @@ const authMiddleware = (requiredRole) => {
       const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verify JWT
       req.user = decoded; // Attach user data to the request
 
-      // Role-based access control
-      if (requiredRole && req.user.role !== requiredRole) {
+      // Role-based access control for multiple roles
+      if (!requiredRoles.includes(req.user.role)) {
         return res.status(403).json({ message: "Forbidden: Insufficient privileges" });
       }
 

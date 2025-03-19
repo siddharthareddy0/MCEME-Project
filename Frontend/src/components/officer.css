@@ -1,0 +1,182 @@
+/* General Styling */
+body, html {
+    font-family: Arial, sans-serif;
+    background-color: #F2F9FF; /* Full window background */
+    height: 100%;
+}
+
+/* Main Container */
+.officer-container {
+    padding: 20px;
+    width: 100%;
+    max-width: 1400px;
+    text-align: center; /* Centers the header */
+}
+
+/* Table Styling */
+.requests-table {
+    width: 70%;
+    padding: 0 20px;
+    overflow-x: auto;
+    padding-bottom: 15px;
+    margin:0 auto;
+}
+
+.requests-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    table-layout: fixed;
+}
+
+/* Table Headers & Cells */
+.requests-table th,
+.requests-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.requests-table th {
+    background: #80C4E9 !important;
+    color: #173B45 !important;
+    padding: 12px !important;
+    text-align: left !important;
+    font-weight: bold !important;
+    font-size: 14px !important;
+    text-transform: uppercase !important;
+    border: 1px solid #e2e8f0 !important;
+}
+
+.requests-table td {
+    padding: 12px;
+    border: 1px solid #dee2e6;
+    font-size: 14px;
+}
+
+.requests-table tr {
+    height: 45px;
+}
+
+.requests-table tbody tr:hover {
+    background-color: #A0DEFF;
+    cursor: pointer;
+}
+
+/* Selected Row */
+.requests-table tr.selected {
+    background-color: #e3f2fd;
+}
+/* Request Details - Centering the Form */
+.request-details {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 500px; /* Limits form width */
+    width: 100%;
+    margin: 0 auto; /* Centers the form */
+    text-align: left;
+    position: relative;
+}
+
+/* Header Container - Center Heading & Back Button */
+.header-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+/* Centering the Form Header */
+.request-details h2 {
+    text-align: center;
+    margin: 0 auto;
+}
+
+/* Back Button - Side of Heading */
+.back-btn6 {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 8px 12px;
+    width: fit-content;
+    position: absolute;
+    right: 0px; /* Moves to the right side of the heading */
+}
+
+.back-btn6:hover {
+    background-color: #0056b3;
+}
+
+/* Aligning Form Elements */
+.form-details {
+    margin-top: 20px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.detail-row label {
+    font-weight: bold;
+    color: #555;
+    flex: 1;
+}
+
+.detail-row span {
+    flex: 2;
+    text-align: right;
+}
+
+/* Action Buttons - Centering Accept & Reject */
+.action-buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Adds spacing between buttons */
+}
+
+/* Approve & Reject Buttons - Side by Side */
+.approve-btn,
+.reject-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    width: fit-content;
+}
+
+.approve-btn {
+    background-color: #4caf50;
+    color: white;
+}
+
+.approve-btn:hover {
+    background-color: #45a049;
+}
+
+.reject-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.reject-btn:hover {
+    background-color: #da190b;
+}

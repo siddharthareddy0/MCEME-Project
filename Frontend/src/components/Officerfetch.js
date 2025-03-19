@@ -2,11 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import './Fetch.css';
 import infoService from '../services/infoService';
-import NavBar from './NavBar';
+import Officernavbar from './Officernavbar';
 import { Link}  from "react-router-dom";
 import { FaPrint} from "react-icons/fa";
 
-function FetchDetails() {
+function OfficerFetch() {
   const [searchTerm, setSearchTerm] = useState('');
   const [designationFilter, setTradeFilter] = useState('');
   const [facultyFilter, setFacWingFilter] = useState('');
@@ -20,9 +20,14 @@ function FetchDetails() {
 
   useEffect(() => {
     const fetchFaculties = async () => {
-      const response = await infoService.dept();
-      console.log("Fetched Faculties:", response); // Log to verify it's an array
-      setFaculties(Array.isArray(response) ? response : []); // Ensure it’s an array
+      try {
+        console.log("Starting to fetch faculties...");
+        const response = await infoService.dept();
+        console.log("Fetched Faculties:", response);
+        setFaculties(Array.isArray(response) ? response : []);
+      } catch (error) {
+        console.error("Error fetching faculties:", error);
+      }
     };
 
     fetchFaculties();
@@ -32,9 +37,14 @@ function FetchDetails() {
 
   useEffect(() => {
     const fetchTrades = async () => {
-      const response = await infoService.trade();
-      console.log("Fetched Trade:", response); // Log to verify it's an array
-      setTrade(Array.isArray(response) ? response : []); // Ensure it’s an array
+      try {
+        console.log("Starting to fetch trades...");
+        const response = await infoService.trade();
+        console.log("Fetched Trade:", response);
+        setTrade(Array.isArray(response) ? response : []);
+      } catch (error) {
+        console.error("Error fetching trades:", error);
+      }
     };
 
     fetchTrades();
@@ -123,7 +133,9 @@ function FetchDetails() {
     useEffect(() => {
         const fetchEmp = async () => {
           try {
+            console.log("Starting to fetch employees...");
             const data = await infoService.employees(); // Fetch faculty list from API
+            console.log("Received employee data:", data);
             setEmp(data);
           } catch (error) {
             console.error("Error fetching employees:", error);
@@ -270,7 +282,7 @@ function FetchDetails() {
 
   return (
     <div>
-    <NavBar/>
+    <Officernavbar/>
     <div className="fetch-details-container">
 
         <>
@@ -460,4 +472,4 @@ function FetchDetails() {
   );
 }
 
-export default FetchDetails;
+export default OfficerFetch;
