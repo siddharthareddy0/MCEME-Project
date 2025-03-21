@@ -431,7 +431,7 @@ const Registration = () => {
                             <label>Ind/Non-Ind</label>
                             <select name="ind" value={formData.ind} onChange={handleChange}>
                                 <option value="">Select </option>
-                                <option value="Industrial">Industrial</option>
+                                <option value="Industrial ">Industrial</option>
                                 <option value="Non-Industrial">Non-Industrial</option>
                             </select>
                         </div>

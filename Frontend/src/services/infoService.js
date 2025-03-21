@@ -50,20 +50,7 @@ const infoService = {
       console.error("Error fetching departments:", error);
       return [];
     }
-  },
-  getUserFromCookie: () => {
-    try {
-      const cookie = document.cookie.split('; ').find(row => row.startsWith('jwt='));
-      if (cookie) {
-        const token = cookie.split('=')[1];
-        return token;
-      }
-      return null;
-    } catch (error) {
-      console.error("Error getting user from cookie:", error);
-      return null;
-    }
-  },
+  }
 };
 
 export default infoService;

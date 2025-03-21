@@ -7,6 +7,7 @@ function NavBar() {
 
   const [showLeaveDropdown, setShowLeaveDropdown] = useState(false);
   const [showPartIIDropdown, setShowPartIIDropdown] = useState(false);
+  const [showUsersDropdown, setShowUsersDropdown] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
   const navigate = useNavigate();
 
@@ -87,6 +88,30 @@ function NavBar() {
             </button>
             <button onClick={() => navigate("/status")}>
               Status
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Users Dropdown */}
+      <div
+        className="leave-dropdown-container"
+        onMouseEnter={() => setShowUsersDropdown(true)}
+        onMouseLeave={() => setShowUsersDropdown(false)}
+      >
+        <button
+          className={`leave-button ${showUsersDropdown ? "active" : ""}`}
+          onClick={() => setShowUsersDropdown(!showUsersDropdown)}
+        >
+          Users
+        </button>
+        {showUsersDropdown && (
+          <div className="leave-dropdown-menu">
+            <button onClick={() => navigate("/newusers")}>
+              New Users
+            </button>
+            <button onClick={() => navigate("/users")}>
+              Users List
             </button>
           </div>
         )}

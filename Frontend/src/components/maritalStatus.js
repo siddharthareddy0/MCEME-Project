@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import NavBar from "./NavBar";
 import "./kinderedRoll.css";  // Using kinderedRoll CSS instead of creating new CSS
+import kinderedRollService from "../services/kinderedRollService";
 
 const MaritalStatus = () => {
   const [notificationMessage, setNotificationMessage] = useState('');
@@ -13,7 +14,6 @@ const MaritalStatus = () => {
     marriageDate: "",
     placeOfMarriage: "",
     proofCertificate: "",
-    applicationNo: "",
     regnNo: "",
     dateOfRegistration: "",
     placeOfRegistration: "",
@@ -21,7 +21,7 @@ const MaritalStatus = () => {
 
   const trades = ["A", "B", "C"];
   const categories = ["Ind", "Non-Ind"];
-  const proofTypes = ["Marriage Certificate", "Aadhar Card", "Joint Photo"];
+  const proofTypes = ["Marriage Certificate"];
 
   // Notification component
   const Notification = ({ message }) => {
@@ -55,14 +55,16 @@ const MaritalStatus = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Implement form submission logic
-    console.log("Form submitted:", formData);
-    
-    // Show success notification
-    setNotificationMessage('Form submitted successfully!');
-    
-    // Reset form
-    resetForm();
+    const cleanedFormData = Object.fromEntries(
+      Object.entries(formData).map(([key, value]) => [key, value === "" ? null : value])
+    );
+    try {
+       await kinderedRollService.submitForm(cleanedFormData);
+      setNotificationMessage('Form submitted successfully!');
+      resetForm();
+    } catch (error) {
+      setNotificationMessage('Error submitting form: ' + error.message);
+    }
     
     // Clear notification after 3 seconds
     setTimeout(() => {
@@ -187,17 +189,6 @@ const MaritalStatus = () => {
                   </option>
                 ))}
               </select>
-            </div>
-
-            <div className="kindered-form-row">
-              <label>Application No:</label>
-              <input
-                type="text"
-                name="applicationNo"
-                value={formData.applicationNo}
-                onChange={handleInputChange}
-                required
-              />
             </div>
 
             <div className="kindered-form-row">

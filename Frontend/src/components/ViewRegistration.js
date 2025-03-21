@@ -396,6 +396,7 @@ const ViewRegistration = ({ onBack }) => {
             <div className="print-box">
               <h3>Basic Information</h3>
               <div className="print-content">
+                
                 <div className="print-row">
                   <label>Command:</label>
                   <span>{employeeData.command}</span>

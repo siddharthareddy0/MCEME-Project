@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import NavBar from "./NavBar";
 import "./kinderedRoll.css";
+import kinderedRollService from "../services/kinderedRollService";
 
 const KinderedRoll = () => {
   const [notificationMessage, setNotificationMessage] = useState('');
@@ -58,19 +59,43 @@ const KinderedRoll = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Implement form submission logic
-    console.log("Form submitted:", formData);
-    
-    // Show success notification
-    setNotificationMessage('Form submitted successfully!');
-    
-    // Reset form
-    resetForm();
+    const cleanedFormData = Object.fromEntries(
+      Object.entries(formData).map(([key, value]) => [key, value === "" ? null : value])
+    );
+    try {
+       await kinderedRollService.submitForm(cleanedFormData);
+      setNotificationMessage('Form submitted successfully!');
+      resetForm();
+    } catch (error) {
+      setNotificationMessage('Error submitting form: ' + error.message);
+    }
     
     // Clear notification after 3 seconds
     setTimeout(() => {
       setNotificationMessage('');
     }, 3000);
+  };
+
+  const shouldDisableFields = (fieldType) => {
+    if (fieldType === 'registrationNumber') {
+      return formData.proofCertificate === 'other certificate';
+    }
+    if (fieldType === 'applicationNumber') {
+      return formData.proofCertificate !== 'Birth Certificate';
+    }
+    return formData.proofCertificate !== 'Birth Certificate';
+  };
+
+  // Add helper function to get registration label
+  const getRegistrationLabel = () => {
+    switch (formData.proofCertificate) {
+      case "Aadhar Card":
+        return "Aadhar Number:";
+      case "Birth Certificate":
+        return "Registration No:";
+      default:
+        return "Registration No:";
+    }
   };
 
   return (
@@ -216,18 +241,22 @@ const KinderedRoll = () => {
                 name="applicationNo"
                 value={formData.applicationNo}
                 onChange={handleInputChange}
-                required
+                required={formData.proofCertificate === 'Birth Certificate'}
+                disabled={shouldDisableFields('applicationNumber')}
+                style={{ backgroundColor: shouldDisableFields('applicationNumber') ? '#f0f0f0' : 'white' }}
               />
             </div>
 
             <div className="kindered-form-row">
-              <label>Registration No:</label>
+              <label>{getRegistrationLabel()}</label>
               <input
                 type="text"
                 name="regnNo"
                 value={formData.regnNo}
                 onChange={handleInputChange}
-                required
+                required={formData.proofCertificate !== 'other certificate'}
+                disabled={shouldDisableFields('registrationNumber')}
+                style={{ backgroundColor: shouldDisableFields('registrationNumber') ? '#f0f0f0' : 'white' }}
               />
             </div>
 
@@ -238,7 +267,9 @@ const KinderedRoll = () => {
                 name="dateOfRegistration"
                 value={formData.dateOfRegistration}
                 onChange={handleInputChange}
-                required
+                required={formData.proofCertificate === "Birth Certificate"}
+                disabled={shouldDisableFields('dateOfRegistration')}
+                style={{ backgroundColor: shouldDisableFields('dateOfRegistration') ? '#f0f0f0' : 'white' }}
               />
             </div>
 
@@ -249,7 +280,9 @@ const KinderedRoll = () => {
                 name="placeOfRegistration"
                 value={formData.placeOfRegistration}
                 onChange={handleInputChange}
-                required
+                required={formData.proofCertificate === "Birth Certificate"}
+                disabled={shouldDisableFields('placeOfRegistration')}
+                style={{ backgroundColor: shouldDisableFields('placeOfRegistration') ? '#f0f0f0' : 'white' }}
               />
             </div>
 

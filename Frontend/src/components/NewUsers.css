@@ -1,0 +1,104 @@
+.new-users-container {
+    padding: 20px;
+    margin: 20px auto;  /* Changed: added auto for horizontal centering */
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Added: center content horizontally */
+}
+
+.new-users-title {
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.new-users-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.new-users-table th {
+    padding: 6px;
+    background-color: #80C4E9;
+    color: black;
+    text-align: left;
+    font-weight: 600;
+    height: 32px;
+}
+
+.new-users-table td {
+    padding: 4px 8px;
+    border-bottom: 1px solid #ddd;
+    height: 24px;
+    line-height: 1.2;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.new-users-action-cell {  /* New class for action cell */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    padding: 6px 0;
+}
+
+.new-users-button-container {  /* New container for buttons */
+    display: inline-flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.new-users-select {
+    width: 90%;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    height: 24px;
+    font-size: 0.85em;
+}
+
+.new-users-button {
+    padding: 4px 12px;
+    margin: 0;
+    border: none;
+    border-radius: 0;  /* Changed: removed border radius */
+    cursor: pointer;
+    font-size: 0.85em;
+    height: auto;
+    min-height: 24px;
+    width: auto;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;  /* Added: remove any box shadow */
+    background: transparent;  /* Added: transparent background */
+}
+
+.new-users-button-accept {
+    background-color: #4caf50;
+    color: white;
+}
+
+.new-users-button-reject {
+    background-color: #f44336;
+    color: white;
+}
+
+.new-users-button:hover {
+    opacity: 0.9;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+}

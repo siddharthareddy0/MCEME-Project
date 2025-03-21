@@ -9,6 +9,9 @@ import getEmployeeRoutes from './routes/getEmployeeRoutes.js';
 import attendanceRoutes from './routes/attendanceRoutes.js';
 import leaveRoutes from './routes/leaveRoutes.js';
 import jwt from "jsonwebtoken";
+import kinderedRollRoutes  from './routes/kinderedRollRoutes.js';
+import retire from "./routes/retireRouter.js";
+import signupRoute from './routes/signupRoute.js';
 
 dotenv.config();
 
@@ -17,7 +20,7 @@ const app = express();
 app.use(
   cors({
     origin: "http://localhost:3000", // Allow only your frontend
-    methods: "GET,POST,PUT,DELETE", // Allow necessary methods
+    methods: "GET,POST,PUT,DELETE,PATCH", // Allow necessary methods
     credentials: true, // Allow cookies and authorization headers
   })
 );
@@ -42,14 +45,20 @@ app.get('/api/login', (req, res) => {
 });
 
 
+
+// ...existing code...
+
+app.use('/kinderedroll', kinderedRollRoutes);
+
 app.use("/api/employees", employeeRoutes); // Only admins can access
 app.use("/info", infoRoutes); // Only users can access
 app.use("/attendance", attendanceRoutes);
 app.use("/leave", leaveRoutes);
 app.use("/leave-history",leaveRoutes);
-
+app.use("/retire", retire);
 app.use("/api/auth", authRoutes);
 app.use("/employeesAll", getEmployeeRoutes);
+app.use('/api', signupRoute);
 
 
 const PORT = process.env.PORT || 5000;

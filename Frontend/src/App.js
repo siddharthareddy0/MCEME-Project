@@ -14,15 +14,19 @@ import UpdateDetails from "./components/updateDetails";
 import UserAttendance from "./components/UserAttendance";
 import FacultyAttendance from "./components/FacultyAttendance";
 import LeaveRecord from "./components/LeaveRecord";
-import  Officer  from "./components/Officer"; 
+import Officer from "./components/Officer"; 
 import OfficerFetch from "./components/Officerfetch";
 import ManPower from "./components/manPower";
 import PartIIOrder from "./components/kinderedRoll";
 import MaritalStatus from "./components/maritalStatus";
 import Retirements from "./components/Retirement";
+import Status from "./components/status";
+import NewUsers from "./components/NewUsers";
+import UserList from "./components/userlist";
+
 function App() {
   return (
-    <div>
+    <>
       <Header />
       <Routes>
         <Route path="/" element={<Login />} />
@@ -45,8 +49,11 @@ function App() {
         <Route path="/kinderedroll" element={<PartIIOrder />} />
         <Route path="/marital-status" element={<MaritalStatus />} />
         <Route path="/retired" element={<Retirements />} />
+        <Route path="/status" element={<Status />} />
+        <Route path="/newusers" element={<NewUsers />} />
+        <Route path="/users" element={<UserList />} /> {/* Changed from /userlist to /users */}
       </Routes>
-    </div>
+    </>
   );
 }
 

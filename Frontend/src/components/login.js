@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import './login.css';
 import authService from '../services/authService';
+import signupService from '../services/signupservice';
 
 function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [notificationMessage, setNotificationMessage] = useState('');
+  const [showSignup, setShowSignup] = useState(false);
+  const [faculty, setFaculty] = useState('');
+  const [signupUsername, setSignupUsername] = useState('');
+  const [signupPassword, setSignupPassword] = useState('');
   const navigate = useNavigate();
 
   // Notification component (conditionally rendered)
@@ -63,10 +68,26 @@ function App() {
     }
   };
 
+  const handleSignup = async () => {
+    try {
+      await signupService.signup(signupUsername, signupPassword, faculty);
+      // Reset signup form
+      setSignupUsername('');
+      setSignupPassword('');
+      setFaculty('');
+      // Automatically redirect to login after signup
+      setTimeout(() => {
+        setShowSignup(false);
+      }, 1000);
+    } catch (err) {
+      setError('Signup failed. Please try again.');
+    }
+  };
+
   return (
     <div className="App">
       <Notification message={notificationMessage} />
-      <div className="login-container">
+      <div className={`login-container ${!showSignup ? 'show' : ''}`}>
         <h2>Login</h2>
         <form>
           <div className="form-group">
@@ -90,7 +111,79 @@ function App() {
             />
           </div>
           {error && <p className="error">{error}</p>}
-          <button type="button" onClick={handleLogin}>Login</button>
+          <div className="button-container">
+            <button type="button" onClick={handleLogin}>Login</button>
+            <button type="button" onClick={() => setShowSignup(true)}>Sign Up</button>
+          </div>
+        </form>
+      </div>
+
+      <div className={`signup-container ${showSignup ? 'show' : ''}`}>
+        <h2>Sign Up</h2>
+        <form>
+          <div className="form-group">
+            <label htmlFor="signupUsername">Username:</label>
+            <input
+              type="text"
+              id="signupUsername"
+              value={signupUsername}
+              onChange={(e) => setSignupUsername(e.target.value)}
+              placeholder="Enter username"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="signupPassword">Password:</label>
+            <input
+              type="password"
+              id="signupPassword"
+              value={signupPassword}
+              onChange={(e) => setSignupPassword(e.target.value)}
+              placeholder="Enter password"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="faculty">Faculty:</label>
+            <select
+              id="faculty"
+              value={faculty}
+              onChange={(e) => setFaculty(e.target.value)}
+              className="faculty-select"
+            >
+              <option value="">Select Faculty</option>
+              <option value="FEL">FEL</option>
+              <option value="HQ ADM">HQ ADM</option>
+              <option value="BUDGET CELL">BUDGET CELL</option>
+              <option value="MTO">MTO</option>
+              <option value="HQ TRG">HQ TRG</option>
+              <option value="FAE">FAE</option>
+              <option value="MTS">MTS</option>
+              <option value="SDD">SDD</option>
+              <option value="FEM">FEM</option>
+              <option value="COL ADM SECTT">COL ADM SECTT</option>
+              <option value="FEME">FEME</option>
+              <option value="JCOs MESS">JCOs MESS</option>
+              <option value="OFFR MESS">OFFR MESS</option>
+              <option value="CTW">CTW</option>
+              <option value="MAG 5">MAG 5</option>
+              <option value="EMESA">EMESA</option>
+              <option value="FDE">FDE</option>
+              <option value="COMDT SECTT">COMDT SECTT</option>
+              <option value="SM Br">SM Br</option>
+              <option value="A COY">A COY</option>
+              <option value="FIN SEC">FIN SEC</option>
+              <option value="EST CIV SEC">EST CIV SEC</option>
+              <option value="ADJT SEC">ADJT SEC</option>
+              <option value="E COY">E COY</option>
+              <option value="QM SEC">QM SEC</option>
+              <option value="QM FIRE STN">QM FIRE STN</option>
+              <option value="MCEME LIBY">MCEME LIBY</option>
+              <option value="AA&QMG">AA&QMG</option>
+              <option value="EST (O) SEC">EST (O) SEC</option>
+              <option value="BSO">BSO</option>
+              <option value="HQ COY">HQ COY</option>
+            </select>
+          </div>
+          <button type="button" onClick={handleSignup}>Submit</button>
         </form>
       </div>
     </div>

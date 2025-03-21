@@ -1,0 +1,45 @@
+.status-container {
+    padding: 15px;
+}
+
+.table-container {
+    margin-top: 15px;
+}
+
+.status-table {
+    width: 80%;
+    max-width: 1000px;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+.status-table th,
+.status-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.status-table th {
+    background-color: #80C4E9;
+    font-weight: bold;
+}
+
+.status-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.status-table button {
+    padding: 4px 8px;
+    background-color: #173B45;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.status-table button:hover {
+    background-color: #173B45;
+}
